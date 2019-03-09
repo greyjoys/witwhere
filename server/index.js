@@ -1,18 +1,28 @@
 const express = require('express');
 const app = express();
-const expressWs = require('express-ws')(app);
+const WebSocket = require('ws');
 const path = require('path')
 
 // app.use(express.static('../build'))
 
-app.ws('/echo', (ws, req) => {
-  ws.on('message', (msg) => { //msg is the string we input
-    ws.send(msg + " received");
-    let connectedUsers = expressWs.getWss('/echo');
-    // console.log('connectedUsers.clients', connectedUsers.clients)
-    connectedUsers.clients.forEach( client => client.send(msg))
-  })
-})
+const wss = new WebSocket.Server({ port: 8080 });
+
+wss.on('connection', (ws) => {
+  ws.send('connected to WS server');
+  try {
+    ws.on('message', (message) => {
+      console.log('received: %s', message);
+      // broadcast message to all open clients
+      wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(message)
+        }
+      })
+    })
+  } catch(err) {
+    console.log('Error: ', err)
+  };
+});
 
 app.get('/build/bundle.js', (req, res) => {
   res.sendFile(path.resolve('build', 'bundle.js'))
