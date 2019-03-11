@@ -13,7 +13,8 @@ export const UPDATE_GAME_STAGE = "UPDATE_GAME_STAGE";
 
 export const LOGIN_USER = "LOGIN_USER";
 
-export const ADVANCE_STAGE = "ADVANCE_STAGE"
+export const ADVANCE_STAGE = "ADVANCE_STAGE";
+export const UPDATE_FOOTER_INPUT = "UPDATE_FOOTER_INPUT";
 
 export const TEST_BUTTON = "TEST_BUTTON";
 export const TEST_ACTION = "TEST_ACTION";

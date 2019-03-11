@@ -2,8 +2,26 @@
   font-size: .5rem;
 
   h1 {
-  	min-height: 30px;
+  	min-height: 40px;
   }
+
+  input {
+  	margin: 0px 10px;
+  	border-top: none;
+  	border-left: none;
+  	border-right: none;
+  	border-bottom: solid $primary-color 1px;
+  	background-color: $secondary-color;
+  	color: $primary-color;
+  }
+  #username {
+  	width: 30%;
+  }
+
+  #password {
+  	width: 25%;
+  }
+
 }
 
 .hstatus {

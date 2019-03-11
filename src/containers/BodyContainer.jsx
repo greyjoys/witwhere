@@ -8,6 +8,7 @@ import Player from '../components/Player.jsx'
 const mapStateToProps = store => ({
   playerName: store.main.playerName,
   playerPass: store.main.playerPass,
+  promptList: store.main.promptList,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -22,18 +23,52 @@ class BodyContainer extends Component {
   }
 
   render(props) {
-    return(
-      <div className="body-container">
-        <playercontainer id="lcontainer">
-          <Player />
-        </playercontainer>
-        <playercontainer id="rcontainer">
-          <Player />
-        </playercontainer>
-      </div>
-    )
-  }
 
+    switch(this.props.gameStage) {
+      case 1: {
+        return(
+        <div className="body-container"></div>
+        )
+      }
+
+      case 2: {
+        return(
+          <div className="body-container">
+            <playercontainer id="lcontainer">
+              <Player />
+            </playercontainer>
+            <playercontainer id="rcontainer">
+              <Player />
+            </playercontainer>
+          </div>
+        )
+      }
+
+      case 3: {
+        return(
+          <div className="body-container">
+            <h2 className="prompt">{this.props.promptList[0]}</h2>
+          </div>
+        )
+      }
+
+      case 4: {
+        return(
+          <div className="body-container"></div>
+        )
+      }
+
+      case 5: {
+        return(
+          <div className="body-container"></div>
+        )
+      }
+
+      default: {
+        <div>error...</div>
+      }    
+    }
+  }  
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BodyContainer);
