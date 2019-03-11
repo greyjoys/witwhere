@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
+
+import Player from '../components/Player.jsx'
 import openSocket from 'socket.io-client';
 const socket = openSocket('http://localhost:8000');
-
-
 
 const mapStateToProps = store => ({
   playerName: store.main.playerName,
   playerPass: store.main.playerPass,
+  promptList: store.main.promptList,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -29,29 +30,52 @@ class BodyContainer extends Component {
     
   }
 
-  postToWS(event) {
-    event.preventDefault();
-    // ws.send('Hello from front end')
-    // this.socket.emit('name of emitted message', {
-    //   message: 'hello from BodyContainer component',
-    //   handle: 'Ray'
-    // })
-  }
+    switch(this.props.gameStage) {
+      case 1: {
+        return(
+        <div className="body-container"></div>
+        )
+      }
 
-  render(props) {
-    
-    return(
-      <div className="body-container">
-        <input placeholder={'username'} /><input placeholder={'password'} />
-        <button onClick={this.props.testButton}>Submit</button>
-        <form onSubmit={(event) => this.postToWS(event)}>
-				  <input type="text"></input>
-				  <input type="submit"></input>
-			  </form>
-      </div>
-    )
-  }
+      case 2: {
+        return(
+          <div className="body-container">
+            <playercontainer id="lcontainer">
+              <Player />
+            </playercontainer>
+            <playercontainer id="rcontainer">
+              <Player />
+            </playercontainer>
+          </div>
+        )
+      }
 
+      case 3: {
+        return(
+          <div className="body-container">
+            <h2 className="prompt">{this.props.promptList[0]}</h2>
+          </div>
+        )
+      }
+
+      case 4: {
+        return(
+          <div className="body-container"></div>
+        )
+      }
+
+      case 5: {
+        return(
+          <div className="body-container"></div>
+        )
+      }
+
+
+      default: {
+        <div>error...</div>
+      }    
+    }
+  }  
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BodyContainer);

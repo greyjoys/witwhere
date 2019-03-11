@@ -1,3 +1,19 @@
 .footer {
+	display: flex;
+	justify-content: center;
+	align-items: left;
+
+	padding: 2%;
+
+	button {
+		margin: 0px 3%;
+		font-size: .4rem;
+		min-width: 15%;
+		font-family: Commodore64;
+	}
+
+	input {
+		width: 85%;
+	}
 
 }
