@@ -27,6 +27,17 @@ module.exports = {
           'sass-loader'
         ]
       },
+      {
+        test: /\.TTF$/,
+        use: [
+          {
+            loader: 'ttf-loader',
+            options: {
+              name: './font/C64.ttf',
+            },
+          },
+        ]
+      }
     ]
   },
   devServer: {
