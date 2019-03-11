@@ -18,7 +18,10 @@ export const updatePlayerPass = (value) => ({
 export const addPlayer = () => (dispatch, getState) => {
   const pName = getState().main.playerName;
   const pPass = getState().main.playerPass;
-  const playerData = [pName, pPass];
+  const playerData = {
+    username: pName,
+    password: pPass
+  };
   // lets send that player to the database!
   fetch('/api/signin', {
     method: "POST",

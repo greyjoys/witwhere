@@ -39,4 +39,17 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
+
+app.post(
+          '/api/signin', 
+          bodyParser.json(), 
+          userController.signinUser
+          )
+
+app.post(
+          '/api/signup', 
+          bodyParser.json(), 
+          userController.signinUser
+          )
+
 app.listen(3000, () => console.log("Listening on port 3k"))
