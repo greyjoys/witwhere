@@ -5,12 +5,14 @@ import * as actions from '../actions/actions';
 // import from child components when the time comes...
 
 const mapStateToProps = store => ({
-  testValue: store.main.testValue,
-  anotherTestValue: store.main.anotherTestValue,
+  playerName: store.main.playerName,
+  playerPass: store.main.playerPass,
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  testButton: () => {
+    dispatch(actions.testButton())
+  },
 });
 
 class BodyContainer extends Component {
@@ -18,14 +20,16 @@ class BodyContainer extends Component {
     super(props);
   }
 
-  render() {
+  render(props) {
+
     return(
       <div className="body-container">
-          <h1>This is the Body Container.</h1>
+        <input value={'username'} /><input value={'password'} />
+        <button onClick={this.props.testButton}>Submit</button>
       </div>
     )
   }
 
 }
 
-export default connect(mapStateToProps)(BodyContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BodyContainer);

@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
-import TestComponent from '../components/TestComponent.jsx'
+import Header from '../components/Header.jsx'
+import BodyContainer from './BodyContainer.jsx'
+import Footer from '../components/Footer.jsx'
 
 const mapStateToProps = store => ({
   testValue: store.main.testValue,
@@ -21,9 +23,10 @@ class MainContainer extends Component {
 
   render() {
     return(
-      <div className="container">
-          <h1 id="header">This is the Main Container.</h1>
-          <TestComponent />
+      <div className="main-container">
+      	<Header />
+      	<BodyContainer />
+      	<Footer />
       </div>
     )
   }

@@ -15,6 +15,24 @@ export const updatePlayerPass = (value) => ({
   payload: value
 });
 
+export const testButton = () => (dispatch) => {
+  console.log('test')
+  fetch('http://localhost:3000/api/signin', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({'username':'user', 'password':'pass'})
+  })
+  .then((newStateResponse) => { return JSON.parse(newStateResponse) })
+  .then((newState) => {
+    dispatch({
+      type: types.TEST_BUTTON,
+      payload: newState
+    })
+  })
+};
+
 export const addPlayer = () => (dispatch, getState) => {
   const pName = getState().main.playerName;
   const pPass = getState().main.playerPass;
