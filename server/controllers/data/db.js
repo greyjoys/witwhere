@@ -2,21 +2,37 @@
 const uri = '';
 const pgp = require('pg-promise')()
 const db = pgp(uri);
+const bcrypt = require('bcrypt')
 
 module.exports = {
   createUser: (req, res, next) => {
-    db.none(`INSERT INTO users ("username", "password") VALUES ('${req.body.username}', '${req.body.password}');`, [true])
+    const saltRounds = 10
+    bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+      db.none(`INSERT INTO users ("username", "password") VALUES ('${req.body.username}', '${hash}');`)
       .then(() => console.log('success'))
       .catch(err => console.log(err))
+      });
     next();
   },
+
   signinUser: (req, res, next) => {
-    db.any(`SELECT * FROM users WHERE username = '${req.body.username}' AND password = '${req.body.password}';`, [true])
+    // bcrypt.compare()
+    db.any(`SELECT password FROM users WHERE username = '${req.body.username}';`, [true])
     .then((data) => {
-      //do stuff here on success
-      console.log(data)
-      if (data.length === 1){res.redirect('/')}
-      //else (res.redirect('/signup')) // redirect
+      if (data.length === 0) {
+        return res.redirect('/api/signup')
+      }
+      bcrypt.compare(req.body.password, data[0].password, (err, res) => {
+        try {
+          if (res) {
+            console.log('password matches!')
+            next()
+          }
+          else return res.redirect('/api/signup')
+        } catch {
+          err => console.log(err)
+        }
+      })
     })
     .catch(err => {
       //do stuff here on error
@@ -25,11 +41,3 @@ module.exports = {
     next();
   }
 }
-
-
-// pg.connect(uri, (err, db) => {
-//   if (err) throw new Error(err);
-//     db.result(`SELECT * from users`, (result) => {
-//       console.log(result);
-//     })
-// })

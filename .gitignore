@@ -67,4 +67,4 @@ typings/
 build/
 
 # password 
-greyjoy.js
+server/controllers/data/greyjoy.js
