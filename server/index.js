@@ -1,30 +1,23 @@
 const express = require('express');
 const app = express();
-const WebSocket = require('ws');
 const path = require('path')
+const http = require('http').Server(app);
 const userController = require('./controllers/data/db')
 const bodyParser = require('body-parser')
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
+
+server.listen(8000, () => console.log('listening on 8000'));
 
 // app.use(express.static('../build'))
 
-// const wss = new WebSocket.Server({ port: 8080 });
-
-// wss.on('connection', (ws) => {
-//   ws.send('connected to WS server');
-//   try {
-//     ws.on('message', (message) => {
-//       console.log('received: %s', message);
-//       // broadcast message to all open clients
-//       wss.clients.forEach((client) => {
-//         if (client.readyState === WebSocket.OPEN) {
-//           client.send(message)
-//         }
-//       })
-//     })
-//   } catch(err) {
-//     console.log('Error: ', err)
-//   };
-// });
+io.on('connection', (client) => {
+  client.emit('news', client.id);
+  console.log("new client connected: ", client.id)
+  client.on('my other event', function (data) {
+    console.log(data);
+  });
+})
 
 app.get('/build/bundle.js', (req, res) => {
   res.sendFile(path.resolve('build', 'bundle.js'))
@@ -39,4 +32,18 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
-app.listen(3000, () => console.log("Listening on port 3k"))
+app.get('/socket', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../socket.html'))
+})
+
+app.post(
+          '/api/signin', 
+          bodyParser.json(), 
+          userController.signinUser
+          )
+
+app.post(
+          '/api/signup', 
+          bodyParser.json(), 
+          userController.signinUser
+          )

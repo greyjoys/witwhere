@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
+
 import Player from '../components/Player.jsx'
+import openSocket from 'socket.io-client';
+const socket = openSocket('http://localhost:8000');
 
 const mapStateToProps = store => ({
   playerName: store.main.playerName,
@@ -20,9 +23,12 @@ const mapDispatchToProps = dispatch => ({
 class BodyContainer extends Component {
   constructor(props) {
     super(props);
+    //this.socket = io.connect('http://localhost:3000');
   }
 
-  render(props) {
+  componentDidMount() {
+    
+  }
 
     switch(this.props.gameStage) {
       case 1: {
@@ -63,6 +69,7 @@ class BodyContainer extends Component {
           <div className="body-container"></div>
         )
       }
+
 
       default: {
         <div>error...</div>
