@@ -41,6 +41,9 @@ module.exports = {
     ]
   },
   devServer: {
-    publicPath: '/build', 
+    publicPath: '/build',
+    proxy: {
+      '/fonts/Commodore64.ttf':'http://localhost:3000'
+    } 
   }
 }

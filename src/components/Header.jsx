@@ -4,7 +4,7 @@ const Header = props => {
 	return(
 		<div className="header">
 			<h1>**** WITWARE 64 V1.00 BASIC V2 ****</h1>
-			<hStatus>Waiting for players to join lobby...</hStatus>
+			<div className="hstatus">Waiting for players to join lobby...</div>
 		</div>
 )}
 

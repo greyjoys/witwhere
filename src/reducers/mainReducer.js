@@ -9,7 +9,7 @@ const initialState = {
   p2Answer: '',
   gameReady: false,
   timer: '',
-  gameStage: 'lobby',
+  gameStage: 1,
   p1AnswerVoteCount: 0,
   p2AnswerVoteCount: 0
 };
@@ -17,6 +17,16 @@ const initialState = {
 const mainReducer = (state = initialState, action) => {
 
   switch (action.type) {
+
+  	case types.ADVANCE_STAGE: {
+  		let newStageValue = state.gameStage + 1;
+  		if (newStageValue === 6) newStageValue = 1; 
+
+  		return {
+  			...state,
+  			gameStage: newStageValue,
+  		}
+  	}
 
     case types.TEST_ACTION: {
       const newTextValue = action.payload

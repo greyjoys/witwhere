@@ -50,6 +50,10 @@ table {
 	border-spacing: 0;
 }
 
+*:focus {
+	outline: none;
+}
+
 
 /* ________________________ */
 
@@ -60,9 +64,30 @@ table {
 
 body {
 
-	font-family: Commodore64;
+  font-family: Commodore64;
+  color: $primary-color;
 
-	height: 100%;
-	width: 100%;
+  height: 100%;
+  width: 100%;
+
+}
+
+h1 {
+
+  font-size: .7rem;
+  font-weight: 100;
+  text-align: center;
+	
+}
+
+h4 {
+
+  font-size: .5rem;
+
+}
+
+input {
+
+	font-family: Commodore64;
 
 }

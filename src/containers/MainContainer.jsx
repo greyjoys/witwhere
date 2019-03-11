@@ -8,12 +8,13 @@ import BodyContainer from './BodyContainer.jsx'
 import Footer from '../components/Footer.jsx'
 
 const mapStateToProps = store => ({
-  testValue: store.main.testValue,
-  anotherTestValue: store.main.anotherTestValue,
+  gameStage: store.main.gameStage,
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  advanceStage: () => {
+    dispatch(actions.advanceStage())
+  },
 });
 
 class MainContainer extends Component {
@@ -21,16 +22,16 @@ class MainContainer extends Component {
     super(props);
   }
 
-  render() {
+  render(props) {
     return(
       <div className="main-container">
       	<Header />
       	<BodyContainer />
-      	<Footer />
+      	<Footer advanceStage={this.props.advanceStage} />
       </div>
     )
   }
 
 }
 
-export default connect(mapStateToProps)(MainContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

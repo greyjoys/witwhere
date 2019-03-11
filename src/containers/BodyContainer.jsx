@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
+import Player from '../components/Player.jsx'
 
 const mapStateToProps = store => ({
   playerName: store.main.playerName,
@@ -21,11 +22,14 @@ class BodyContainer extends Component {
   }
 
   render(props) {
-
     return(
       <div className="body-container">
-        <input value={'username'} /><input value={'password'} />
-        <button onClick={this.props.testButton}>Submit</button>
+        <playercontainer id="lcontainer">
+          <Player />
+        </playercontainer>
+        <playercontainer id="rcontainer">
+          <Player />
+        </playercontainer>
       </div>
     )
   }

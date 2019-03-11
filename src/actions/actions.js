@@ -15,6 +15,10 @@ export const updatePlayerPass = (value) => ({
   payload: value
 });
 
+export const advanceStage = () => ({
+  type: types.ADVANCE_STAGE
+});
+
 export const testButton = () => (dispatch) => {
   console.log('test')
   fetch('http://localhost:3000/api/signin', {
