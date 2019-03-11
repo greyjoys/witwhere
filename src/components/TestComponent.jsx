@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TestComponent = props => {
-	ws = new WebSocket({port: 8080})
+	// ws = new WebSocket({port: 8080})
 
 	function postToWS(){
 		console.log('hi')

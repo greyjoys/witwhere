@@ -1,7 +1,7 @@
 import * as types from '../const/actionTypes';
 
 const initialState = {
-  playerName: '',
+  playerName: 'test',
   playerPass: '',
   playerList: [],
   promptList: ['This is a prompt', 'this is another prompt'],
@@ -25,6 +25,18 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         newTextValue,
       };
+    }
+
+    case types.TEST_BUTTON: {
+      return {
+      	...state
+      }
+    }
+
+    case types.LOGIN_USER: {
+      return {
+      	...state
+      }
     }
 
     default: {

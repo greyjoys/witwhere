@@ -11,6 +11,9 @@ export const SET_GAME_READY = "SET_GAME_READY";
 export const SET_TIMER_EXPIRED = "SET_TIMER_EXPIRED";
 export const UPDATE_GAME_STAGE = "UPDATE_GAME_STAGE";
 
+export const LOGIN_USER = "LOGIN_USER";
+
+export const TEST_BUTTON = "TEST_BUTTON"
 export const TEST_ACTION = "TEST_ACTION"
 // Stretch Goals:
 // export const UPDATE_P1_VOTE_COUNT = 'UPDATE_P1_VOTE_COUNT';
