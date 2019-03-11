@@ -17,7 +17,7 @@ export const updatePlayerPass = (value) => ({
 
 export const testButton = () => (dispatch) => {
   console.log('test')
-  fetch('http://localhost:3000/api/signin', {
+  fetch('http://localhost:8080/api/signin', {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -36,7 +36,10 @@ export const testButton = () => (dispatch) => {
 export const addPlayer = () => (dispatch, getState) => {
   const pName = getState().main.playerName;
   const pPass = getState().main.playerPass;
-  const playerData = [pName, pPass];
+  const playerData = {
+    username: pName,
+    password: pPass
+  };
   // lets send that player to the database!
   fetch('/api/signin', {
     method: "POST",

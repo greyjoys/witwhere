@@ -1,5 +1,5 @@
 // const uri = require('./greyjoy.js');
-const uri = '';
+const uri = 'postgres://mdnojqtk:99kI1Bhpq5RWjag3IwjZ-p4bxVVaibi5@baasu.db.elephantsql.com:5432/mdnojqtk';
 const pgp = require('pg-promise')()
 const db = pgp(uri);
 const bcrypt = require('bcrypt')
@@ -29,8 +29,8 @@ module.exports = {
             next()
           }
           else return res.redirect('/api/signup')
-        } catch {
-          err => console.log(err)
+        } catch(err) {
+          console.log('Bcrypt Error:', err)
         }
       })
     })
