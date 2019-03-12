@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
 import Player from '../components/Player.jsx'
+import Typing from 'react-typing-animation';
 
 const mapStateToProps = store => ({
   playerName: store.main.playerName,
@@ -24,51 +25,58 @@ class BodyContainer extends Component {
 
   render(props) {
 
-    switch(this.props.gameStage) {
+    switch (this.props.gameStage) {
       case 1: {
-        return(
-        <div className="body-container"></div>
+        return (
+          <div className="body-container"></div>
         )
       }
 
       case 2: {
-        return(
+        return (
           <div className="body-container">
-            <playercontainer id="lcontainer">
+            <div className="playercontainer" id="lcontainer">
               <Player />
-            </playercontainer>
-            <playercontainer id="rcontainer">
+            </div>
+            <div className="playercontainer" id="rcontainer">
               <Player />
-            </playercontainer>
+            </div>
           </div>
         )
       }
 
       case 3: {
-        return(
+        return (
           <div className="body-container">
-            <h2 className="prompt">{this.props.promptList[0]}</h2>
+            <Typing className="typing-wrapper" cursorClassName="prompt-type">
+              <h2 className="prompt">{this.props.promptList[0]}</h2>
+            </Typing>
           </div>
         )
       }
 
       case 4: {
-        return(
-          <div className="body-container"></div>
+        return (
+          <div className="body-container">
+            <div className="answers-container">
+              <h2 className="prompt">Funny answer</h2>
+              <h2 className="prompt">Another hilarious answer</h2>
+            </div>
+          </div>
         )
       }
 
       case 5: {
-        return(
+        return (
           <div className="body-container"></div>
         )
       }
 
       default: {
         <div>error...</div>
-      }    
+      }
     }
-  }  
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BodyContainer);

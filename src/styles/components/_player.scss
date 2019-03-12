@@ -4,8 +4,8 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-
-  width: 92%;
+  box-sizing: border-box;
+  width: 100%;
 
 
 }
