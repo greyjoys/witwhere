@@ -1,8 +1,10 @@
+<!-- Test page for socket.io -->
+
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io.connect();
   socket.on('news', function (data) {
     console.log('data:', data);
-    socket.emit('my other event', { my: 'data' });
+    socket.emit('submitAnswer', { my: 'data' });
   });
 </script>

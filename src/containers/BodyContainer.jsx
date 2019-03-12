@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
 
+
 import Player from '../components/Player.jsx'
 import Typing from 'react-typing-animation';
 
@@ -22,12 +23,12 @@ const mapDispatchToProps = dispatch => ({
 class BodyContainer extends Component {
   constructor(props) {
     super(props);
-    //this.socket = io.connect('http://localhost:3000');
   }
 
   componentDidMount() {
 
-  }
+  render(props) {
+
 
   switch(this.props.gameStage) {
       case 1: {
@@ -58,6 +59,7 @@ class BodyContainer extends Component {
         </div>
       )
     }
+
 
       case 4: {
       return (
