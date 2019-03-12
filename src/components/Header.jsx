@@ -6,7 +6,7 @@ const Header = props => {
     case 1: {
       return (
         <div className="header">
-          <h1>**** WITWARE 64 V1.00 BASIC V2 ****</h1>
+          <h1>**** WITWHERE 64 V1.00 BASIC V2 ****</h1>
           <div className="sign-in-container">
             <div className="inputs">
               <div className="user-input-container">
@@ -29,7 +29,7 @@ const Header = props => {
     case 2: {
       return (
         <div className="header">
-          <h1>**** WITWARE 64 V1.00 BASIC V2 ****</h1>
+          <h1>**** WITWHERE 64 V1.00 BASIC V2 ****</h1>
           <h2 className="hstatus">Waiting for players to join lobby...</h2>
         </div>
       )
@@ -38,7 +38,7 @@ const Header = props => {
     case 3: {
       return (
         <div className="header">
-          <h1>**** WITWARE 64 V1.00 BASIC V2 ****</h1>
+          <h1>**** WITWHERE 64 V1.00 BASIC V2 ****</h1>
         </div>
       )
     }
@@ -46,7 +46,7 @@ const Header = props => {
     case 4: {
       return (
         <div className="header">
-          <h1>**** WITWARE 64 V1.00 BASIC V2 ****</h1>
+          <h1>**** WITWHERE 64 V1.00 BASIC V2 ****</h1>
         </div>
       )
     }
@@ -54,7 +54,7 @@ const Header = props => {
     case 5: {
       return (
         <div className="header">
-          <h1>**** WITWARE 64 V1.00 BASIC V2 ****</h1>
+          <h1>**** WITWHERE 64 V1.00 BASIC V2 ****</h1>
         </div>
       )
     }

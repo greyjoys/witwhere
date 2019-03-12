@@ -68,7 +68,11 @@ class BodyContainer extends Component {
 
       case 5: {
         return (
-          <div className="body-container"></div>
+          <div className="body-container">
+            <div className="typing-wrapper">
+              <h2 className="prompt">RESULTS</h2>
+            </div>
+          </div>
         )
       }
 
