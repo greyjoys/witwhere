@@ -68,3 +68,4 @@ build/
 
 # password 
 server/controllers/data/greyjoy.js
+server/keys
