@@ -1,22 +1,42 @@
 const express = require('express');
 const app = express();
 const path = require('path')
-const http = require('http').Server(app);
 const userController = require('./controllers/data/db')
 const bodyParser = require('body-parser')
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
+const fs = require('fs')
 
 server.listen(8000, () => console.log('listening on 8000'));
 
-// app.use(express.static('../build'))
+
+// Overall Game State
+const state = {
+  playerList: [],
+  promptList: ["A bad time to shake someone's hand", "this is another prompt"],
+  gameReady: false,
+  timer: '',
+  gameStage: 1,
+ };
+
 
 io.on('connection', (client) => {
-  client.emit('news', client.id);
-  console.log("new client connected: ", client.id)
-  client.on('my other event', function (data) {
-    console.log(data);
+  // Upon pressing 'ready', set a property on the user marking them as ready. Advance to the next game phase once both players are ready. *INCOMPLETE*
+  client.on('advanceStage', (data) => {
+    console.log(client.id, data);
+    const players = fs.readFileSync('./playerState.js', 'utf8')
+    players.push({id: client.id, ready: data.ready})
+    if (players[0].ready && players[1].ready){
+      client.emit('nextStage', true)
+      fs.writeFileSync('./playerState.js', '[]', (err) => console.log('fs error: ', err))
+    }
   });
+
+  // Upon logging in, create a new user object and store it in playerList within state. Send back the updated state to the front end.
+  client.on('signIn', (data) => {
+    state.playerList.push({id: client.id, username: data.username, answer: []}) 
+    client.emit(state)
+  })
 })
 
 app.get('/build/bundle.js', (req, res) => {
@@ -28,7 +48,6 @@ app.get('/fonts/Commodore64.ttf', (req, res) => {
 });
 
 app.get('/', (req, res, next) => {
-  // console.log('get route');
   res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 

@@ -1,22 +1,23 @@
 // const uri = require('./greyjoy.js');
-const uri = 'postgres://mdnojqtk:99kI1Bhpq5RWjag3IwjZ-p4bxVVaibi5@baasu.db.elephantsql.com:5432/mdnojqtk';
+const uri = ''; // ask Siye for elephantSQL URI
 const pgp = require('pg-promise')()
 const db = pgp(uri);
 const bcrypt = require('bcrypt')
 
 module.exports = {
+  // User Sign Up
   createUser: (req, res, next) => {
     const saltRounds = 10
     bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-      db.none(`INSERT INTO users ("username", "password") VALUES ('${req.body.username}', '${hash}');`)
+      db.none(`INSERT INTO users ("username", "password") VALUES ('${req.body.username}', '${hash}');`) // Add user to 'users' table. Table has columns (_id, username (varchar(20)), password varchar(256))
       .then(() => console.log('success'))
       .catch(err => console.log(err))
       });
     next();
   },
 
+  // User Log In
   signinUser: (req, res, next) => {
-    // bcrypt.compare()
     db.any(`SELECT password FROM users WHERE username = '${req.body.username}';`, [true])
     .then((data) => {
       if (data.length === 0) {
@@ -35,7 +36,6 @@ module.exports = {
       })
     })
     .catch(err => {
-      //do stuff here on error
       console.log(err) 
     })
     next();
