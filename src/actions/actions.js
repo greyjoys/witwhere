@@ -5,14 +5,23 @@ export const testAction = () => ({
   payload: 123,
 });
 
-export const updatePlayerName = (value) => ({
-  type: types.UPDATE_PLAYER_NAME,
-  payload: value
+export const updateFooterInput = (e) => ({
+  type: types.UPDATE_FOOTER_INPUT,
+  payload: e.target.value
 });
 
-export const updatePlayerPass = (value) => ({
+export const updatePlayerName = (e) => ({
+  type: types.UPDATE_PLAYER_NAME,
+  payload: e.target.value
+});
+
+export const updatePlayerPass = (e) => ({
   type: types.UPDATE_PLAYER_PASS,
-  payload: value
+  payload: e.target.value
+});
+
+export const advanceStage = () => ({
+  type: types.ADVANCE_STAGE
 });
 
 export const testButton = () => (dispatch) => {
@@ -22,15 +31,15 @@ export const testButton = () => (dispatch) => {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({'username':'user', 'password':'pass'})
+    body: JSON.stringify({ 'username': 'user', 'password': 'pass' })
   })
-  .then((newStateResponse) => { return JSON.parse(newStateResponse) })
-  .then((newState) => {
-    dispatch({
-      type: types.TEST_BUTTON,
-      payload: newState
+    .then((newStateResponse) => { return JSON.parse(newStateResponse) })
+    .then((newState) => {
+      dispatch({
+        type: types.TEST_BUTTON,
+        payload: newState
+      })
     })
-  })
 };
 
 export const addPlayer = () => (dispatch, getState) => {
@@ -57,3 +66,7 @@ export const addPlayer = () => (dispatch, getState) => {
     })
 };
 
+export const submitReady = () => (dispatch, getState) => {
+  const username = getState().main.playerName;
+  const submitReadyData = [username];
+}

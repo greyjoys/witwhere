@@ -1,3 +1,41 @@
-.bodyContainer {
+.body-container {
+
+    margin-top: 3%;
+    margin-bottom: 2%;
+    min-height: 150px;
+    border-top: solid white 1px;
+    display: flex;
+    width: 100%;
+
+	#lcontainer {
+		border-right: solid white 1px;
+	}
+
+	.playercontainer {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: flex-start;
+		width: 50%;
+	}
+
+	.prompt {
+		margin: auto;
+		height: 100%;
+		width: 100%;
+		// text-align: center;
+	}
+
+	.typing-wrapper {
+		// text-align: center;
+		display: block;
+		width: 100%;
+		align-self: center;
+	}
+
+	.prompt-type {
+		background: $primary-color;
+		color: transparent;
+		padding-left: 2px;
+	}
 
 }

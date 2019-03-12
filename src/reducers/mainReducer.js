@@ -1,22 +1,71 @@
 import * as types from '../const/actionTypes';
 
 const initialState = {
-  playerName: 'test',
+  playerName: '',
   playerPass: '',
-  playerList: [],
-  promptList: ['This is a prompt', 'this is another prompt'],
+  playerList: [{ id: "", ready: false, answer: "" }],
+  promptList: [`A bad time to shake someone's hand`, "Tony, I've got some bad news:"],
   p1Answer: '',
   p2Answer: '',
   gameReady: false,
   timer: '',
-  gameStage: 'lobby',
+  gameStage: 1,
   p1AnswerVoteCount: 0,
-  p2AnswerVoteCount: 0
+  p2AnswerVoteCount: 0,
+  footerInput: '',
 };
 
+
+
 const mainReducer = (state = initialState, action) => {
+  let newPlayer = {
+    id: "",
+    ready: false,
+    answer: ''
+  }
 
   switch (action.type) {
+
+    case types.ADVANCE_STAGE: {
+      let newStageValue = state.gameStage + 1;
+      if (newStageValue === 6) newStageValue = 1;
+
+      return {
+        ...state,
+        gameStage: newStageValue,
+      };
+
+    }
+
+    case types.UPDATE_FOOTER_INPUT: {
+
+      let newFooterInput = action.payload;
+
+      return {
+        ...state,
+        footerInput: newFooterInput,
+      };
+    }
+
+    case types.UPDATE_PLAYER_NAME: {
+
+      let newPlayerName = action.payload;
+
+      return {
+        ...state,
+        playerName: newPlayerName,
+      };
+    }
+
+    case types.UPDATE_PLAYER_PASS: {
+
+      let newPlayerPass = action.payload;
+
+      return {
+        ...state,
+        playerPass: newPlayerPass,
+      };
+    }
 
     case types.TEST_ACTION: {
       const newTextValue = action.payload
@@ -29,13 +78,13 @@ const mainReducer = (state = initialState, action) => {
 
     case types.TEST_BUTTON: {
       return {
-      	...state
+        ...state
       }
     }
 
     case types.LOGIN_USER: {
       return {
-      	...state
+        ...state
       }
     }
 
