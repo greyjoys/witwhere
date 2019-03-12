@@ -4,57 +4,55 @@ const Footer = props => {
 
   console.log(props.gameStage)
 
-  switch(props.gameStage) {
+  switch (props.gameStage) {
 
-  	case 1: {
-      return(
+    case 1: {
+      return (
         <div className="footer">
-          <input value={props.footerInput} onChange={props.updateFooterInput} /> 
-          <button onClick={props.advanceStage}>sign in</button>
+
         </div>
       )
     }
 
-  	case 2: {
-      return(
+    case 2: {
+      return (
         <div className="footer">
-          <input value={props.footerInput} onChange={props.updateFooterInput} /> 
-          <button onClick={props.advanceStage}>go</button>
+          <button className="ready-button" onClick={props.advanceStage}>ready</button>
         </div>
       )
     }
 
     case 3: {
-      return(
+      return (
         <div className="footer">
-          <input value={props.footerInput} onChange={props.updateFooterInput} /> 
-          <button onClick={props.advanceStage}>go</button>
+          <input value={props.footerInput} onChange={props.updateFooterInput} />
+          <button onClick={props.advanceStage}>submit answer</button>
         </div>
       )
     }
 
     case 4: {
-      return(
+      return (
         <div className="footer">
-          <input value={props.footerInput} onChange={props.updateFooterInput} /> 
+          <input value={props.footerInput} onChange={props.updateFooterInput} />
           <button onClick={props.advanceStage}>go</button>
         </div>
       )
     }
 
     case 5: {
-      return(
+      return (
         <div className="footer">
-          <input value={props.footerInput} onChange={props.updateFooterInput} /> 
+          <input value={props.footerInput} onChange={props.updateFooterInput} />
           <button onClick={props.advanceStage}>go</button>
         </div>
       )
     }
 
     default: {
-      return(
+      return (
         <div className="footer">
-          <input value={props.footerInput} onChange={props.updateFooterInput} /> 
+          <input value={props.footerInput} onChange={props.updateFooterInput} />
           <button onClick={props.advanceStage}>go</button>
         </div>
       )

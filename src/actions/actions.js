@@ -31,15 +31,15 @@ export const testButton = () => (dispatch) => {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({'username':'user', 'password':'pass'})
+    body: JSON.stringify({ 'username': 'user', 'password': 'pass' })
   })
-  .then((newStateResponse) => { return JSON.parse(newStateResponse) })
-  .then((newState) => {
-    dispatch({
-      type: types.TEST_BUTTON,
-      payload: newState
+    .then((newStateResponse) => { return JSON.parse(newStateResponse) })
+    .then((newState) => {
+      dispatch({
+        type: types.TEST_BUTTON,
+        payload: newState
+      })
     })
-  })
 };
 
 export const addPlayer = () => (dispatch, getState) => {
@@ -66,3 +66,7 @@ export const addPlayer = () => (dispatch, getState) => {
     })
 };
 
+export const submitReady = () => (dispatch, getState) => {
+  const username = getState().main.playerName;
+  const submitReadyData = [username];
+}
