@@ -4,6 +4,7 @@ const path = require('path');
 const userController = require('./controllers/data/db');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const cookieController = require('./controllers/cookie/cookieController');
 
 // initialize socket io
 const server = require('http').Server(app);
@@ -37,7 +38,7 @@ app.use('/build', express.static(path.resolve(__dirname, '../build')));
 //   });
 // });
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 // app.get('/build/bundle.js', (req, res) => {
 //   res.sendFile(path.resolve('build', 'bundle.js'));
@@ -55,14 +56,8 @@ app.get('/', cookieController.setCookie, (req, res, next) => {
 //   res.sendFile(path.resolve(__dirname, '../socket.html'));
 // });
 
-app.post(
-          '/api/signup', 
-          userController.createUser
-          )
+app.post('/api/signup', userController.createUser);
 
-app.post(
-          '/api/login', 
-          userController.loginUser
-          )
+app.post('/api/login', userController.loginUser);
 
-server.listen( 8000, () => console.log('listening on 8000') );
+server.listen(8000, () => console.log('listening on 8000'));
