@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: path.resolve('./src', 'client/index.js'),
+  entry: path.resolve('./src', 'index.js'),
   output: { path: path.resolve(__dirname, 'build'), filename: 'bundle.js' },
   module: {
     rules: [
