@@ -31,7 +31,7 @@ io.on('connection', client => {
       );
     }
   });
-
+})
   // Upon logging in, create a new user object and store it in playerList within state. Send back the updated state to the front end.
 
 
@@ -50,6 +50,7 @@ app.get('/build/bundle.js', (req, res) => {
 });
 
 app.use(bodyParser.json())
+
 // app.get('/build/bundle.js', (req, res) => {
 //   res.sendFile(path.resolve('build', 'bundle.js'));
 // });
@@ -76,4 +77,4 @@ app.post(
           userController.signinUser
           )
 
-server.listen(8000, () => console.log('listening on 8000'));
+server.listen( 8000, () => console.log('listening on 8000') );

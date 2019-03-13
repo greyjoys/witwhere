@@ -6,14 +6,6 @@ const pgp = require('pg-promise')();
 const db = pgp(uri);
 const bcrypt = require('bcrypt');
 
-/*
-module.exports = {
-  handleDBRequest: (playerName, password) => {
-    createUser(playerName, password); 
-  }
-}
-*/
-
 module.exports = {
   // User Sign Up
   createUser: (req, res, next) => {
