@@ -68,7 +68,7 @@ const mainReducer = (state = initialState, action) => {
     }
 
     case types.TEST_ACTION: {
-      const newTextValue = action.payload
+      const newTextValue = action.payload;
 
       return {
         ...state,
@@ -76,12 +76,30 @@ const mainReducer = (state = initialState, action) => {
       };
     }
 
+    case types.ADD_PLAYER: {
+      return {
+        ...state
+      }
+    }
     // case types.SIGN_UP: {
     //   return {
     //     ...state
     //   }
     // }
 
+    case types.ADD_PLAYER_FAILURE: {
+      let newPlayerName = action.payload;
+      let newPlayerPass = action.payload;
+      return {
+        ...state,
+        playerPass: newPlayerPass,
+        playerName: newPlayerName
+      }
+    }
+
+    case types.START_GAME: {
+      return state = action.payload
+    }
     case types.LOGIN_USER: {
       return {
         ...state

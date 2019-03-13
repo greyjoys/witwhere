@@ -16,6 +16,9 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   testButton: () => {
     dispatch(actions.testButton());
+  },
+  addPlayer: () => {
+    dispatch(actions.addPlayer());
   }
 });
 
