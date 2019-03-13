@@ -16,8 +16,9 @@ const SignIn = props => (
   <div className="sign-in">
     <label name="username">Player name</label>
     <input id="username" name="username" type="text"></input>
+
     <label name="password">Password</label>
-    <input id="password" name="password" type="text"></input>
+    <input id="password" name="password" type="password" placeholder="password"></input>
   </div>
 );
 

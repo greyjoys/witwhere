@@ -39,6 +39,8 @@ io.on('connection', (client) => {
   })
 })
 
+app.use(bodyParser.json())
+
 app.get('/build/bundle.js', (req, res) => {
   res.sendFile(path.resolve('build', 'bundle.js'))
 });
@@ -56,13 +58,11 @@ app.get('/socket', (req, res) => {
 })
 
 app.post(
-          '/api/signin', 
-          bodyParser.json(), 
-          userController.signinUser
+          '/api/signup', 
+          userController.createUser
           )
 
 app.post(
-          '/api/signup', 
-          bodyParser.json(), 
+          '/api/signin', 
           userController.signinUser
           )

@@ -15,7 +15,7 @@ const Header = props => {
               </div>
               <div className="user-input-container">
                 <label name="password">Password:</label>
-                <input id="password" name="password" type="text" value={props.playerPass} onChange={props.updatePlayerPass}></input>
+                <input id="password" name="password" type="password" value={props.playerPass} onChange={props.updatePlayerPass}></input>
               </div>
             </div>
             <div className="button">
