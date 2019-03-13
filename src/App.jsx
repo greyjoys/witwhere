@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
+// Import Children
+
+import Login from './components/Login.jsx';
+import Signup from './components/Signup.jsx';
+import Lobby from './components/Lobby.jsx';
 import MainContainer from './containers/MainContainer.jsx';
-import io from 'socket.io-client';
 
 class App extends Component {
   constructor(props) {
@@ -16,9 +22,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="app">
-        <MainContainer />
-      </div>
+      <Router>
+        <React.Fragment>
+          <h1>**** WITWHERE 64 V1.00 BASIC V2 ****</h1>
+          <Route path={'/login'} component={Login} />
+          <Route path={'/signup'} component={Signup} />
+          <Route path={'/lobby'} component={Lobby} />
+          <Route path={'/main'} component={MainContainer} />
+        </React.Fragment>
+      </Router>
     );
   }
 }

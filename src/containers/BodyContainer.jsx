@@ -83,7 +83,4 @@ class BodyContainer extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BodyContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BodyContainer);
