@@ -7,6 +7,9 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const fs = require('fs');
 
+const cookieParser = require('cookie-parser');
+const cookieController = require('./controllers/cookie/cookieController')
+
 // Overall Game State
 const state = {
   playerList: [],
@@ -17,6 +20,8 @@ const state = {
 };
 
 app.use('/build', express.static(path.resolve(__dirname, '../build')));
+
+app.use(cookieParser());
 
 io.on('connection', client => {
   // Upon pressing 'ready', set a property on the user marking them as ready. Advance to the next game phase once both players are ready. *INCOMPLETE*
@@ -59,7 +64,7 @@ app.use(bodyParser.json())
 //   res.sendFile(path.resolve('build/font', 'C64.ttf'));
 // });
 
-app.get('/', (req, res, next) => {
+app.get('/', cookieController.setCookie, (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
@@ -73,8 +78,8 @@ app.post(
           )
 
 app.post(
-          '/api/signin', 
-          userController.signinUser
+          '/api/login', 
+          userController.loginUser
           )
 
 server.listen( 8000, () => console.log('listening on 8000') );
