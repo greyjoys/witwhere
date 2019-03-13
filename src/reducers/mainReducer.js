@@ -76,11 +76,11 @@ const mainReducer = (state = initialState, action) => {
       };
     }
 
-    case types.SIGN_UP: {
-      return {
-        ...state
-      }
-    }
+    // case types.SIGN_UP: {
+    //   return {
+    //     ...state
+    //   }
+    // }
 
     case types.LOGIN_USER: {
       return {
