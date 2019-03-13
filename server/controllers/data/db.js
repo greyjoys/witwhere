@@ -18,28 +18,25 @@ module.exports = {
         throw new Error(err);
       }
       // adds the new user to the db
-      db.none('INSERT INTO users(username, password) VALUES($1, $2)', [
-        `${req.body.username}`,
-        `${hash}`
+      db.none('INSERT INTO users(username, password) VALUES ($1, $2);', [
+        req.body.username,
+        hash
       ])
         .then(() => {
-          console.log('user created');
+          db.one(`SELECT * FROM users WHERE username = $1;`, [
+            req.body.username
+          ]).then(data => {
+            console.log(data);
+            cookieController.setSSIDCookie(res, data._id); //set SSIDCookie after user created to their _id
+            sessionController.startSession(data._id);
+            res.send({ authenticated: true });
+          });
         })
         .catch(error => {
           console.log(error);
           next();
         });
       // Add user to 'users' table. Table has columns (_id, username (varchar(20)), password varchar(256))
-
-      db.one('SELECT * FROM users WHERE username = ${req.body.username}')
-        .then(data => {
-          console.log(data);
-          cookieController.setSSIDCookie(res, data._id); //set SSIDCookie after user created to their _id
-          sessionController.startSession(data._id);
-          next();
-        })
-        .catch(err => console.log(err));
-      res.send('check ur cookies');
     });
   },
 

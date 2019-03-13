@@ -12,8 +12,7 @@ require('./styles/main.scss');
 
 render(
   <Provider store={store}>
-    // <h1>Test</h1>,
-    <App />
+    <App />,
   </Provider>,
   document.getElementById('contents')
 );
