@@ -20,10 +20,19 @@ export const updatePlayerPass = (e) => ({
   payload: e.target.value
 });
 
+export const addPlayerFailure = () => ({
+  type: types.ADD_PLAYER_FAILURE,
+  payload: ""
+})
+
 export const advanceStage = () => ({
   type: types.ADVANCE_STAGE
 });
 
+export const startGame = (state) => ({
+  type: types.START_GAME,
+  payload: state
+})
 export const testButton = () => (dispatch) => {
   console.log('test')
   fetch('http://localhost:8080/api/signin', {
@@ -42,26 +51,20 @@ export const testButton = () => (dispatch) => {
   })
 };
 
-export function addPlayer() {
-  return function(dispatch) {
+export function addPlayer(username, password) {
+  return dispatch => {
     fetch('http://localhost/8000/api/signup', {
       method: "POST", 
       headers: {
         "Content-Type": "application/json" 
       }, 
       body: {
-        "username": getState().main.playerName,
-        "password": getState().main.playerPass
+        "username": username,
+        "password": password
       }
     })
     .then(res=>res.json())
-    .then((newState) => {
-      dispatch({
-        type: types.ADD_PLAYER,
-        payload: newState
-      })
-    })
-    .catch((e)=>console.error(e.stack))
+    .then((newState) => dispatch(startGame(newState)), (err) => dispatch(addPlayerFailure()))
   }
 };
 
