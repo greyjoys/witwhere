@@ -1,9 +1,14 @@
-import {render} from 'react-dom'
 import React from 'react'
+import { render } from 'react-dom'
+
 import { Provider } from 'react-redux'
-import App from './App.jsx'
 import store from './store'
+import { createStore, applyMiddleware } from "redux";
+
+
+import App from './App.jsx'
 import Commodore64 from './styles/fonts/Commodore64.TTF'
+
 require('./styles/main.scss')
 
 render(
@@ -11,4 +16,4 @@ render(
     <App />
   </Provider>,
   document.getElementById('contents')
-)
+);

@@ -16,6 +16,9 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   testButton: () => {
     dispatch(actions.testButton());
+  },
+  addPlayer: () => {
+    dispatch(actions.addPlayer());
   }
 });
 
@@ -83,7 +86,4 @@ class BodyContainer extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BodyContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BodyContainer);

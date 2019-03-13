@@ -20,10 +20,19 @@ export const updatePlayerPass = (e) => ({
   payload: e.target.value
 });
 
+export const addPlayerFailure = () => ({
+  type: types.ADD_PLAYER_FAILURE,
+  payload: ""
+})
+
 export const advanceStage = () => ({
   type: types.ADVANCE_STAGE
 });
 
+export const startGame = (state) => ({
+  type: types.START_GAME,
+  payload: state
+})
 export const testButton = () => (dispatch) => {
   console.log('test')
   fetch('http://localhost:8080/api/signin', {
@@ -33,40 +42,33 @@ export const testButton = () => (dispatch) => {
     },
     body: JSON.stringify({ 'username': 'user', 'password': 'pass' })
   })
-    .then((newStateResponse) => { return JSON.parse(newStateResponse) })
-    .then((newState) => {
-      dispatch({
-        type: types.TEST_BUTTON,
-        payload: newState
-      })
+  .then((newStateResponse) => { return JSON.parse(newStateResponse) })
+  .then((newState) => {
+    dispatch({
+      type: types.TEST_BUTTON,
+      payload: newState
     })
-};
-
-export const addPlayer = () => (dispatch, getState) => {
-  const pName = getState().main.playerName;
-  const pPass = getState().main.playerPass;
-  const playerData = {
-    username: pName,
-    password: pPass
-  };
-  // lets send that player to the database!
-  fetch('/api/signin', {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(playerData)
   })
-    .then((newStateResponse) => { return newStateResponse })
-    .then((newState) => {
-      dispatch({
-        type: types.ADD_PLAYER,
-        payload: newState
-      })
-    })
 };
 
-export const submitReady = () => (dispatch, getState) => {
+export function addPlayer(username, password) {
+  return dispatch => {
+    fetch('http://localhost/8000/api/signup', {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json" 
+      }, 
+      body: {
+        "username": username,
+        "password": password
+      }
+    })
+    .then(res=>res.json())
+    .then((newState) => dispatch(startGame(newState)), (err) => dispatch(addPlayerFailure()))
+  }
+};
+
+export const submitReady = () => (dispatch, getStFate) => {
   const username = getState().main.playerName;
   const submitReadyData = [username];
 }
