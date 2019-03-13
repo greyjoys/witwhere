@@ -1,5 +1,5 @@
 const { UserModel } = require('./UserModel');
-const prompts = require('./prompts');
+const prompts = require('./prompts/prompts.js');
 
 class GameSession {
   constructor(config) {
@@ -17,12 +17,23 @@ class GameSession {
     this.prompts = [...prompts];
   }
 
-  addUser(username) {
-    this.users[username] = new UserModel(username);
+  sendMessageToPlayers(socket, message) {
+    Object.values(this.users).forEach(user => {
+      socket.to(user.socket).emit(JSON.stringify(message));
+    });
+  }
+
+  sendStateToPlayers(socket) {
+    sendMessageToPlayers(socket, this.getGameState());
+  }
+
+  addUser(username, socket) {
+    this.users[username] = new UserModel(username, socket);
   }
 
   canStartGame() {
-    if (this.users.length === this.maxPlayers) {
+    // this will fail
+    if (Object.keys(this.users).length >= this.maxPlayers) {
       this.overallGameState = 1;
       this.roundState = 1;
       return true;
@@ -32,11 +43,17 @@ class GameSession {
 
   getPrompt() {
     this.roundState = 2;
-    return this.prompts.splice(Math.random() * this.prompts.length, 1);
+    // writing a test helped me figure out [0] needed to be added in order
+    // for the typeof to be string, not object. typescript would have caught this.
+    this.prompt = this.prompts.splice(
+      Math.random() * this.prompts.length,
+      1
+    )[0];
+    return this.prompt;
   }
 
-  addResponse(username, response) {
-    if (username === this.player1username) {
+  addResponse(playerNumber, response) {
+    if (playerNumber === 1) {
       this.player1response.response = response;
     } else {
       this.player2response.response = response;
@@ -73,15 +90,14 @@ class GameSession {
     this.roundState = 2;
     if (this.player1response.votes > this.player2response.votes) {
       this.users[this.player1username].score += 1;
-      return this.player1response.username;
-    } else if (this.player2response.votes > this.player1response.votes) {
-      this.users[this.player2username].score += 1;
-      return this.player2response.username;
     } else {
-      return null;
+      this.users[this.player2username].score += 1;
     }
+    return {
+      player1response: this.player1response,
+      player2response: this.player2response
+    };
   }
-
   didSomeoneWin() {
     for (const [k, v] in Object.entries(this.users)) {
       if (v.votes >= this.maxPoints) {
