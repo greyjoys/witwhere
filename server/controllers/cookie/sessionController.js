@@ -1,3 +1,7 @@
+const KEYS = require('../../keys/keys.js')
+const pgp = require('pg-promise')();
+const uri = KEYS.POSTGRES_URI;
+const db = pgp(uri);
 
 module.exports = {
 
@@ -7,7 +11,11 @@ module.exports = {
 
   startSession: (ssid) => {
     console.log('inside start session')
-    console.log(ssid)
+    db.none('INSERT INTO users(sessionssidcookie) VALUES($1)', [ssid])
+      .then(()=>{
+        console.log('session SSID set!')
+      })
+      .catch(err => console.log(err));
   }
 
 }

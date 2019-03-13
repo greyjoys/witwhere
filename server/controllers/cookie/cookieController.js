@@ -9,6 +9,10 @@ module.exports = {
   
   setSSIDCookie(res, ssid) {
     res.cookie('ssid', ssid, { httpOnly: true })
+  },
+
+  setUserCookie(res, username) {
+    res.cookie('usernameCookie', username)
   }
 
 }

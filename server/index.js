@@ -5,6 +5,8 @@ const userController = require('./controllers/data/db');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
+const cookieController = require('./controllers/cookie/cookieController')
+
 // initialize socket io
 const server = require('http').Server(app);
 const initializeSocketService = require('./controllers/socketController');
