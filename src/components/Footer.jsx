@@ -2,7 +2,6 @@ import React from 'react';
 
 const Footer = props => {
 
-  console.log(props.gameStage)
 
   switch (props.gameStage) {
 

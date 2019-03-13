@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Login = props => {
+const Signup = props => {
 
   return (
-    <div className='login-box'> 
+    <div className='signup-box'> 
       <label name="username">Player name:</label>
       <input 
         id="username" 
@@ -15,14 +15,14 @@ const Login = props => {
       <label name="password">Password:</label>
       <input 
         id="password" 
-        name="password" 
+        name="password"
         type="text" 
         value={ props.playerPass } 
         onChange={ props.updatePlayerPass } 
       />
-      <button onClick={ props.addPlayer }>Log In.</button>
+      <button onClick={ props.addPlayer }>Sign Up.</button>
     </div>
   );
 };
 
-export default Login;
+export default Signup;

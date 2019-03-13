@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
-import Header from '../components/Header.jsx'
-import BodyContainer from './BodyContainer.jsx'
-import Footer from '../components/Footer.jsx'
 
 const mapStateToProps = store => ({
   gameStage: store.main.gameStage,
@@ -29,13 +26,18 @@ const mapDispatchToProps = dispatch => ({
   },
   submitReady: (e) => {
     dispatch(actions.submitReady(e))
+  },
+  addPlayer: () => {
+    dispatch(actions.addPlayer())
   }
 });
+
+// Component Body
 
 class MainContainer extends Component {
   constructor(props) {
     super(props);
-  }
+  };
 
   render(props) {
 
@@ -49,6 +51,7 @@ class MainContainer extends Component {
           updatePlayerPass={this.props.updatePlayerPass}
           advanceStage={this.props.advanceStage}
           playerList={this.props.playerList}
+          addPlayer={this.props.addPlayer}
         />
         <BodyContainer gameStage={this.props.gameStage} />
         <Footer
@@ -57,9 +60,8 @@ class MainContainer extends Component {
           advanceStage={this.props.advanceStage}
           submitReady={this.props.submitReady} />
       </div>
-    )
-  }
-
-}
+    );
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

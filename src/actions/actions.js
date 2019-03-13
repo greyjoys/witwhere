@@ -42,31 +42,30 @@ export const testButton = () => (dispatch) => {
   })
 };
 
-export const addPlayer = () => (dispatch, getState) => {
-  const pName = getState().main.playerName;
-  const pPass = getState().main.playerPass;
-  const playerData = {
-    username: pName,
-    password: pPass
-  };
-  // lets send that player to the database!
-  fetch('/api/signin', {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(playerData)
-  })
-  .then((newStateResponse) => { return newStateResponse })
-  .then((newState) => {
-    dispatch({
-      type: types.SIGN_UP,
-      payload: newState
+export function addPlayer() {
+  return function(dispatch) {
+    fetch('http://localhost/8000/api/signup', {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json" 
+      }, 
+      body: {
+        "username": getState().main.playerName,
+        "password": getState().main.playerPass
+      }
     })
-  })
+    .then(res=>res.json())
+    .then((newState) => {
+      dispatch({
+        type: types.ADD_PLAYER,
+        payload: newState
+      })
+    })
+    .catch((e)=>console.error(e.stack))
+  }
 };
 
-export const submitReady = () => (dispatch, getState) => {
+export const submitReady = () => (dispatch, getStFate) => {
   const username = getState().main.playerName;
   const submitReadyData = [username];
 }
