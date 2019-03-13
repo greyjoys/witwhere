@@ -76,7 +76,7 @@ const mainReducer = (state = initialState, action) => {
       };
     }
 
-    case types.TEST_BUTTON: {
+    case types.SIGN_UP: {
       return {
         ...state
       }

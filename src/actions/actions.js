@@ -33,13 +33,13 @@ export const testButton = () => (dispatch) => {
     },
     body: JSON.stringify({ 'username': 'user', 'password': 'pass' })
   })
-    .then((newStateResponse) => { return JSON.parse(newStateResponse) })
-    .then((newState) => {
-      dispatch({
-        type: types.TEST_BUTTON,
-        payload: newState
-      })
+  .then((newStateResponse) => { return JSON.parse(newStateResponse) })
+  .then((newState) => {
+    dispatch({
+      type: types.TEST_BUTTON,
+      payload: newState
     })
+  })
 };
 
 export const addPlayer = () => (dispatch, getState) => {
@@ -57,13 +57,13 @@ export const addPlayer = () => (dispatch, getState) => {
     },
     body: JSON.stringify(playerData)
   })
-    .then((newStateResponse) => { return newStateResponse })
-    .then((newState) => {
-      dispatch({
-        type: types.ADD_PLAYER,
-        payload: newState
-      })
+  .then((newStateResponse) => { return newStateResponse })
+  .then((newState) => {
+    dispatch({
+      type: types.SIGN_UP,
+      payload: newState
     })
+  })
 };
 
 export const submitReady = () => (dispatch, getState) => {
