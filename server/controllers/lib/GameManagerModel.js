@@ -13,6 +13,7 @@ class GameManager {
     const newGameSession = new GameSession(defaultGameConfig);
     this.activeGames[gid] = newGameSession;
     this.gameIdIncrementer += 1;
+    return gid;
   }
 
   endGame(gid) {
@@ -20,8 +21,11 @@ class GameManager {
   }
 
   getGame(gid) {
-    return this.activeGames[gid];
+    if (this.activeGames[gid]) {
+      return this.activeGames[gid];
+    }
+    return false;
   }
 }
 
-module.exports = GameManager();
+module.exports = new GameManager();

@@ -35,9 +35,11 @@
     "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
+    "@types/socket.io": "^2.1.2",
     "bcrypt": "^3.0.4",
     "express": "^4.16.4",
     "express-ws": "^4.0.0",
+    "jest": "^24.5.0",
     "node-sass": "^4.11.0",
     "nodemon": "^1.18.10",
     "pg-promise": "^8.6.3",
