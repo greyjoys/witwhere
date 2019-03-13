@@ -9,6 +9,7 @@ const bcrypt = require('bcrypt');
 module.exports = {
   // User Sign Up
   createUser: (req, res, next) => {
+    console.log(req.body)
     const saltRounds = 10;
     bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
       if (err) {
