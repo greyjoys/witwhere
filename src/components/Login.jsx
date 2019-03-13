@@ -2,6 +2,9 @@ import React from 'react';
 
 const Login = props => {
 
+  if (props.loggedIn) {
+    <Redirect to='/lobby' /> 
+  } else {
   return (
     <div className='login-box'> 
       <label name="username">Player name:</label>
@@ -23,6 +26,7 @@ const Login = props => {
       <button onClick={ props.addPlayer }>Log In.</button>
     </div>
   );
+  };
 };
 
 export default Login;

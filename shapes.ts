@@ -1,7 +1,7 @@
 interface GameManager {
   activeGames: { [key: number]: GameSession };
   gameIdIncrementer: number;
-  createGame: () => GameSession;
+  createGame: () => number;
   endGame: (gid) => void; // delete a game
   getGame: (number) => GameSession;
 }
@@ -40,12 +40,14 @@ interface GameSession {
   // functions
   addUser: (string) => void;
   canStartGame: () => boolean;
+  //
   getPrompt: () => string;
   addResponse: (username: string, response: string) => void;
   didBothPlayerSubmitResponses: () => boolean;
   submitVote: (player: number) => void;
   didAllObserversVote: () => boolean;
   determineRoundWinner: () => string | boolean;
+  //
   didSomeoneWin: () => string | boolean;
   getGameState: () => { [key: string]: any };
 }
@@ -53,26 +55,51 @@ interface GameSession {
 interface IUsers {
   username: string;
   score: number;
+  socket: string;
 }
 
 enum socketMessages {
-  ADD_USER,
+  CREATE,
+  JOIN,
   ADD_RESPONSE,
   SUBMIT_VOTE
 }
 
-interface ADD_USER_MSG_STRUCT {
+interface CREATE_GAME_MSG_STRUCT {
+  username: string;
+}
+
+interface CREATE_GAME_MSG_RESP {
+  gid: number;
+}
+
+interface JOIN_GAME_MSG_STRUCT {
   gid: number;
   username: string;
 }
 
 interface ADD_RESPONSE_MSG_STRUCT {
   gid: number;
-  username: string;
+  playerNumber: number;
   response: string;
 }
 
 interface SUBMIT_VOTE_MSG_STRUCT {
   gid: number;
-  player: number;
+  playerNumber: number; // 1 or 2 , for player 1 or 2
+}
+
+interface SUBMIT_VOTE_RESPONSE_MSG_STRUCT {
+  gid: number;
+  results: {
+    player1response: {
+      response: string;
+      votes: number;
+    };
+    player2response: {
+      response: string;
+      votes: number;
+    };
+  };
+  gameState;
 }

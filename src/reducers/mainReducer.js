@@ -81,6 +81,11 @@ const mainReducer = (state = initialState, action) => {
         ...state
       }
     }
+    // case types.SIGN_UP: {
+    //   return {
+    //     ...state
+    //   }
+    // }
 
     case types.ADD_PLAYER_FAILURE: {
       let newPlayerName = action.payload;
