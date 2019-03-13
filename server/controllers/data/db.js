@@ -11,14 +11,17 @@ const cookieController = require('../cookie/cookieController.js');
 module.exports = {
   // User Sign Up
   createUser: (req, res, next) => {
-    console.log(req.body)
+    console.log(req.body);
     const saltRounds = 10;
     bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
       if (err) {
         throw new Error(err);
       }
-
-      db.none('INSERT INTO users(username, password) VALUES($1, $2)', [`${req.body.username}`, `${hash}`])
+      // adds the new user to the db
+      db.none('INSERT INTO users(username, password) VALUES($1, $2)', [
+        `${req.body.username}`,
+        `${hash}`
+      ])
         .then(() => {
           console.log('user created')
           db.one(`SELECT * FROM users WHERE username = '${req.body.username}';`)
@@ -32,10 +35,20 @@ module.exports = {
             .catch(err => console.log(err));
         })
         .catch(error => {
-          console.log(error)
-          next()
-        })
+          console.log(error);
+          next();
+        });
       // Add user to 'users' table. Table has columns (_id, username (varchar(20)), password varchar(256))
+
+      db.one('SELECT * FROM users WHERE username = ${req.body.username}')
+        .then(data => {
+          console.log(data);
+          cookieController.setSSIDCookie(res, data._id); //set SSIDCookie after user created to their _id
+          sessionController.startSession(data._id);
+          next();
+        })
+        .catch(err => console.log(err));
+      res.send('check ur cookies');
     });
   },
 
@@ -45,7 +58,7 @@ module.exports = {
       `SELECT users._id, password, users.username FROM users WHERE username = '${req.body.username}';`,[true]
     )
       .then(data => {
-        console.log(data)
+        console.log(data);
         if (data.length === 0) {
           return res.redirect('/api/signup');
         }
@@ -55,7 +68,6 @@ module.exports = {
               cookieController.setUserCookie(res, data[0].username)
               cookieController.setSSIDCookie(res, data[0]._id)
               next();
-
             } else return res.redirect('/api/signup');
           } catch (err) {
             console.log('Bcrypt Error:', err);
