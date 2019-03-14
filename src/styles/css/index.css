@@ -164,5 +164,11 @@ p {
   padding-top: 50px;
 }
 #contents hr {
-  margin-top: 50px;
+  margin: 50px 10px;
+}
+#contents .signup-box {
+  width: 800px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
 }
