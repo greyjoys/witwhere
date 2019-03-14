@@ -12,15 +12,13 @@ function initializeSocketService(server) {
 
     console.log(socket.id);
     connections.push(socket.id);
-    console.log('someone joined');
-    console.log('current connections', connections);
-    socket.emit('player_joined', 'welcome');
-    setInterval(() => {
-      socket.emit('message', 1);
-      // for (let i = 0; i < connections.length; i += 1) {
-      //   socket.to(connections[i]).emit('message', i);
-      // }
-    }, 1000);
+
+    // setInterval(() => {
+    // socket.emit('message', 1);
+    // for (let i = 0; i < connections.length; i += 1) {
+    //   socket.to(connections[i]).emit('message', i);
+    // }
+    // }, 1000);
 
     socket.on('CREATE', () => {
       const reqSocketId = socket.id;
