@@ -36,6 +36,8 @@ class App extends Component {
           <Route path={'/final'} component={ Final } />
           <Route path={'/auth/login'} component={ Login } />
           <Route path={'/auth/signup'} component={ Signup } />
+          {/* <Route path={'/login'} render={() => <Login {...this.props} />} />
+          <Route path={'/signup'} render={() => <Signup {...this.props} />} /> */}
         </React.Fragment>
       </Router>
     );

@@ -1,12 +1,12 @@
 import React from 'react';
 
 const Signup = props => {
-    
-  if (props.signedUp) {
-    <Redirect to='/login' />
+  let signUpErrorMessage
+  if(props.signUpError[1]) {
+    signUpErrorMessage = <p>{props.signUpError[0]}</p>
   } else {
-    if (!props.signUpError) {
-
+    signUpErrorMessage = ''
+  }
       return (
         <div className='signup-box'> 
         <label name="username">Player name:</label>
@@ -25,6 +25,7 @@ const Signup = props => {
           value={ props.playerPass } 
           onChange={ props.updatePlayerPass } 
           />
+          {signUpErrorMessage}
         <button 
         onClick={() => {
           props.addPlayer(props.playerName, props.playerPass);
@@ -32,35 +33,6 @@ const Signup = props => {
            
       </div>
     );
-  } else {
-    return (
-      <div className='signup-box'> 
-      <label name="username">Player name:</label>
-      <input 
-        id="username" 
-        name="username"
-        type="text" 
-        value={ props.playerName } 
-        onChange={ props.updatePlayerName } 
-        />
-      <label name="password">Password:</label>
-      <input 
-        id="password" 
-        name="password"
-        type="password" 
-        value={ props.playerPass } 
-        onChange={ props.updatePlayerPass } 
-        />
-        <p>{props.signUpError}</p>
-      <button 
-      onClick={() => {
-        props.addPlayer(props.playerName, props.playerPass);
-      }}>Sign Up.</button>
-         
-    </div>
-    );
-  };
-  };
 };
 
 export default Signup;

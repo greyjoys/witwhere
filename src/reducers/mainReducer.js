@@ -14,7 +14,9 @@ const initialState = {
   maxPlayers: 5,
   maxPoints: 5,
   roundState: 1,
-  webSocket: undefined
+  webSocket: undefined,
+  loginError: null,
+  signUpError: ['no error', false]
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -115,9 +117,11 @@ const mainReducer = (state = initialState, action) => {
       };
     }
 
-    // case types.START_GAME: {
-    //   return { ...state, ...action.payload };
-    // }
+    case types.START_GAME: {
+      console.log('start game success')
+      return { ...state, ...action.payload };
+    }
+    
     case types.LOGIN_USER: {
       return {
         ...state
