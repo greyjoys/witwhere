@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import io from 'socket.io-client';
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
-import Waiting from '../components/game-components/Waiting.jsx'
-import Voting from '../components/game-components/Voting.jsx'
-import Results from '../components/game-components/Results.jsx'
-import Final from '../components/game-components/Final.jsx'
+import Waiting from '../components/game-components/Waiting.jsx';
+import Voting from '../components/game-components/Voting.jsx';
+import Results from '../components/game-components/Results.jsx';
+import Final from '../components/game-components/Final.jsx';
+import Menu from '../components/Menu.jsx';
 
 const mapStateToProps = store => ({
   gameStage: store.main.gameStage,
@@ -24,23 +26,8 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  advanceStage: () => {
-    dispatch(actions.advanceStage())
-  },
-  updatePlayerName: (e) => {
-    dispatch(actions.updatePlayerName(e))
-  },
-  updatePlayerPass: (e) => {
-    dispatch(actions.updatePlayerPass(e))
-  },
-  updateFooterInput: (e) => {
-    dispatch(actions.updateFooterInput(e))
-  },
-  submitReady: (e) => {
-    dispatch(actions.submitReady(e))
-  },
-  addPlayer: () => {
-    dispatch(actions.addPlayer())
+  addSocket: ws => {
+    dispatch(actions.addWebSocketToStore(ws));
   }
 });
 
@@ -49,19 +36,37 @@ const mapDispatchToProps = dispatch => ({
 class MainContainer extends Component {
   constructor(props) {
     super(props);
-  };
+  }
 
-  render(props) {
+  componentDidMount() {
+    console.log('initiating socket connection');
+    const socket = io('http://localhost:8000');
+    // socket.on('message', data => console.log(data));
+    socket.on('message', data => {
+      this.props.testSocket(data);
+      console.log(data);
+    });
+    console.log(this.props);
+    // this.props.addSocket(socket);
+  }
 
+  render() {
     return (
-      <main className="main-container">
-        <Waiting />
-        <Voting />
-        <Results />
-        <Final />
-      </main>
+      <Router>
+        <main className="main-container">
+          {/* <Route path="/" render={() => <Lobby />} /> */}
+          <Menu />
+          <Waiting />
+          <Voting />
+          <Results />
+          <Final />
+        </main>
+      </Router>
     );
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainContainer);
