@@ -1,105 +1,42 @@
 import React from 'react';
 
 const Login = props => {
+  let logInErrorMessage;
 
-  console.log('from login component:', props);
-  if (props.loggedIn) {
-    <Redirect to="/lobby" />;
-  } else {
-    if (!props.loginError) {
-      return (
-        <div className="login-box">
-          <label name="username">Player name:</label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            value={props.playerName}
-            onChange={props.updatePlayerName}
-          />
-          <label name="password">Password:</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            value={props.playerPass}
-            onChange={props.updatePlayerPass}
-          />
-          <button
-            onClick={() => {
-              props.login(props.playerName, props.playerPass);
-            }}
-          >
-            Log In.
-          </button>
-        </div>
-      );
-    } else {
-      return (
-        <div className="login-box">
-          <label name="username">Player name:</label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            value={props.playerName}
-            onChange={props.updatePlayerName}
-          />
-          <label name="password">Password:</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            value={props.playerPass}
-            onChange={props.updatePlayerPass}
-          />
-          <p>{props.loginError}</p>
-          <button
-            onClick={() => {
-              props.login(props.playerName, props.playerPass);
-            }}
-          >
-            Log In.
-          </button>
-        </div>
-      );
-    }
-  }
-};
-
-  console.log('inside component:');
-  let logInErrorMessage
   if (props.loginError) {
-    logInErrorMessage = <p>{props.loginError}</p>
+    logInErrorMessage = <p>{ props.loginError }</p>;
   } else {
-    logInErrorMessage = ''
-  }
-    return (
-      <div className='login-box'>
-        <label name='username'>Player name:</label>
-        <input
-          id='username'
-          name='username'
-          type='text'
-          value={ props.playerName }
-          onChange={ props.updatePlayerName }
-        />
-        <label name='password'>Password:</label>
-        <input
-          id='password'
-          name='password'
-          type='password'
-          value={ props.playerPass }
-          onChange={ props.updatePlayerPass }
-        />
-        {logInErrorMessage}
-        <button
-          onClick={() => {
-            props.login(props.playerName, props.playerPass);
-          }}
-        >Log In.</button>
-      </div>
-    );
-  }; 
+    logInErrorMessage = '';
+  };
+
+  return (
+    <div className='login-box'>
+      <label name='username'>Username: </label>
+      <input
+        id='username'
+        name='username'
+        type='text'
+        value={ props.playerName }
+        onChange={ props.updatePlayerName }
+      />
+      <label name='password'>Password: </label>
+      <input
+        id='password'
+        name='password'
+        type='password'
+        value={ props.playerPass }
+        onChange={ props.updatePlayerPass }
+      />
+      {logInErrorMessage}
+      <button
+        onClick={() => {
+          props.login(props.playerName, props.playerPass);
+        }}
+      >
+        Log In.
+      </button>
+    </div>
+  );
+}; 
 
 export default Login;

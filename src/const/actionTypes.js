@@ -24,8 +24,6 @@ export const TEST_ACTION = 'TEST_ACTION';
 
 export const ADD_SOCKET_TO_STORE = 'ADD_SOCKET_TO_STORE';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
-
-// Stretch Goals:
-// export const UPDATE_P1_VOTE_COUNT = 'UPDATE_P1_VOTE_COUNT';
-// export const UPDATE_P2_VOTE_COUNT = 'UPDATE_P2_VOTE_COUNT';
+export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+export const ADD_PLAYER_FAILURE = 'ADD_PLAYER_FAILURE';
+export const START_GAME = 'START_GAME';

@@ -24,9 +24,9 @@ const mapStateToProps = store => ({
   playerList: store.main.playerList,
   maxPoints: store.main.maxPoints,
   maxPlayers: store.main.maxPlayers,
-  // username from auth store
+  // Username From Auth Store
   username: store.auth.playerName,
-  //
+  // WebSocket
   ws: store.main.webSocket
 });
 
@@ -202,7 +202,4 @@ class MainContainer extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MainContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

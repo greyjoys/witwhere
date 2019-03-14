@@ -86,10 +86,7 @@ export const submitReady = () => (dispatch, getStFate) => {
   const submitReadyData = [username];
 };
 
-/**
- * NEWLY ADDED
- *
- */
+// NEWLY ADDED
 
 export const addWebSocketToStore = ws => ({
   type: types.ADD_SOCKET_TO_STORE,
