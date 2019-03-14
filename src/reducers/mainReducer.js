@@ -40,13 +40,10 @@ const mainReducer = (state = initialState, action) => {
         gid: newGid
       };
     }
-    case types.ADVANCE_STAGE: {
-      let newStageValue = state.gameStage + 1;
-      if (newStageValue === 6) newStageValue = 1;
-
+    case types.START_GAME: {
+      state = action.payload;
       return {
-        ...state,
-        gameStage: newStageValue
+        state
       };
     }
 

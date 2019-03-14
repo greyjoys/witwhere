@@ -15,8 +15,9 @@ export const addPlayerFailure = () => ({
   payload: ''
 });
 
-export const advanceStage = () => ({
-  type: types.ADVANCE_STAGE
+export const startGame = state => ({
+  type: types.START_GAME,
+  payload: state
 });
 
 export function addPlayer(username, password) {

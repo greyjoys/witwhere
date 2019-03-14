@@ -35,6 +35,9 @@ const mapDispatchToProps = dispatch => ({
   },
   addGid: gid => {
     dispatch(actions.addGid(gid));
+  },
+  startGame: gameState => {
+    dispatch(actions.startGame(gameState));
   }
 });
 
@@ -61,6 +64,7 @@ class MainContainer extends Component {
 
     socket.on('newState', newState => {
       console.log(newState);
+      this.props.startGame(newState);
     });
 
     this.props.addSocket(socket);

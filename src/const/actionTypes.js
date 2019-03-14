@@ -16,7 +16,7 @@ export const ADD_GAME_ID = 'ADD_GAME_ID';
 export const LOGIN_USER = 'LOGIN_USER';
 export const TEST_SOCKET = 'TEST_SOCKET';
 
-export const ADVANCE_STAGE = 'ADVANCE_STAGE';
+export const START_GAME = 'START_GAME';
 export const UPDATE_FOOTER_INPUT = 'UPDATE_FOOTER_INPUT';
 
 export const TEST_BUTTON = 'TEST_BUTTON';
