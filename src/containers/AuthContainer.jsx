@@ -6,17 +6,12 @@ import * as actions from '../actions/actions';
 // import from child components when the time comes...
 
 const mapStateToProps = store => ({
-<<<<<<< HEAD
   gameStage: store.main.gameStage,
   playerName: store.main.playerName,
   playerPass: store.main.playerPass,
   playerList: store.main.playerList,
   signUpError: store.main.signUpError,
   loginError: store.main.loginError,
-=======
-  // playerName: store.auth.playerName,
-  // playerPass: store.auth.playerPass
->>>>>>> 4ddd6822fb6deedca01cd249d8ac64530762620a
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -69,15 +64,6 @@ class AuthContainer extends Component {
     }
     
     return (
-<<<<<<< HEAD
-      <div className="auth-container">
-        <h1> Inside auth container</h1>
-        <Link to="/login">Log In</Link>
-        <Link to="/signup">Sign Up</Link>
-        <Route path={'/login'} render={() => <Login {...this.props} />} />
-        <Route path={'/signup'} render={() => <Signup {...this.props} />} />
-      </div>
-=======
       <Router>
         <div className="auth-container">
           <h1>Inside auth container</h1>
@@ -85,7 +71,6 @@ class AuthContainer extends Component {
           <button onClick={ this.signUpClicked }>Sign Up</button>
         </div>
       </Router>
->>>>>>> 4ddd6822fb6deedca01cd249d8ac64530762620a
     );
   }
 }
