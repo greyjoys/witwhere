@@ -8,10 +8,8 @@ import Login from '../components/Login.jsx';
 import Signup from '../components/Signup.jsx';
 
 const mapStateToProps = store => ({
-  gameStage: store.main.gameStage,
-  playerName: store.main.playerName,
-  playerPass: store.main.playerPass,
-  playerList: store.main.playerList
+  playerName: store.auth.playerName,
+  playerPass: store.auth.playerPass
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -21,9 +19,7 @@ const mapDispatchToProps = dispatch => ({
   updatePlayerPass: e => {
     dispatch(actions.updatePlayerPass(e));
   },
-  updateFooterInput: e => {
-    dispatch(actions.updateFooterInput(e));
-  },
+
   // submitReady: e => {
   //   dispatch(actions.submitReady(e));
   // },
