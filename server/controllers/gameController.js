@@ -16,6 +16,7 @@ module.exports = {
     const game = GameManager.getGame(gid);
     if (!game) {
       socket.to(reqSocketId).emit('JOIN', false);
+      return;
     } else {
       game.addUser(username, reqSocketId);
     }
@@ -46,9 +47,10 @@ module.exports = {
     if (game.didAllObserversVote()) {
       console.log('all observers voted');
       const results = game.determineRoundWinner();
-
-      // const gameState = game.getGameState();
-      // game.sendMessageToPlayers(socket, { results, gameState });
+      if (!game.didSomeoneWinTheGame()) {
+        game.randomlySelectPlayers();
+        game.getPrompt();
+      }
       game.sendStateToPlayers(io);
     }
   }

@@ -13,8 +13,9 @@ class GameSession {
     this.overallGameState = 0; // 0 for waiting, 1 for active, 2 for end
     this.maxPlayers = config.maxPlayers;
     this.maxPoints = config.maxPoints;
-    this.roundState = undefined; // undefined when not active, 1 for waiting for p1 and p2 responses, 2 for voting
+    this.roundState = undefined; // 1 when not active, 2 for waiting for p1 and p2 responses, 3 for voting
     this.prompts = [...prompts];
+    this.winner = undefined;
   }
 
   sendStateToPlayers(io) {
@@ -124,10 +125,12 @@ class GameSession {
       player2response: this.player2response
     };
   }
-  didSomeoneWin() {
-    for (const [k, v] in Object.entries(this.users)) {
-      if (v.votes >= this.maxPoints) {
-        return k;
+  didSomeoneWinTheGame() {
+    for (const [k, u] in Object.entries(this.users)) {
+      if (u.scores >= this.maxPoints) {
+        this.overallGameState = 2;
+        this.winner = k;
+        return true;
       }
     }
     return false;
