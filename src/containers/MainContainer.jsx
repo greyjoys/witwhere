@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
+import Lobby from '../components/Lobby.jsx';
 import Waiting from '../components/game-components/Waiting.jsx';
 import Voting from '../components/game-components/Voting.jsx';
 import Results from '../components/game-components/Results.jsx';

@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
+  mode: 'development', // process.env.NODE_ENV,
   entry: path.resolve('./src', 'index.js'),
   output: { path: path.resolve(__dirname, 'build'), filename: 'bundle.js' },
   module: {
@@ -21,6 +21,11 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
+        test: /\.css$/,
+        exclude: [path.resolve(__dirname, 'node_modules')],
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+      },
+      {
         test: /\.TTF$/,
         use: [
           {
@@ -35,10 +40,10 @@ module.exports = {
   },
   devServer: {
     publicPath: '/build',
-    // proxy: {
+    // proxy: [{
     //   '/fonts/Commodore64.ttf': 'http://localhost:8000',
     //   '/api': 'http://localhost:8000'
-    // }
+    // }],
     proxy: [
       {
         context: ['/api', '/socket.io', '/fonts'],

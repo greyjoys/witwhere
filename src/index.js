@@ -8,11 +8,11 @@ import { createStore, applyMiddleware } from 'redux';
 import App from './App.jsx';
 import Commodore64 from './styles/fonts/Commodore64.TTF';
 
-require('./styles/main.scss');
+require('./styles/css/index.css');
 
 render(
   <Provider store={store}>
-    <App />,
+    <App />
   </Provider>,
   document.getElementById('contents')
 );
