@@ -18,44 +18,35 @@ module.exports = {
         throw new Error(err);
       }
       // adds the new user to the db
-      db.none('INSERT INTO users(username, password) VALUES($1, $2)', [
-        `${req.body.username}`,
-        `${hash}`
+      db.none('INSERT INTO users(username, password) VALUES ($1, $2);', [
+        req.body.username,
+        hash
       ])
         .then(() => {
-          console.log('user created')
-          db.one(`SELECT * FROM users WHERE username = '${req.body.username}';`)
-            .then(data => {
-              console.log(data)
-              cookieController.setUserCookie(res, data.username)
-              cookieController.setSSIDCookie(res, data._id) //set SSIDCookie after user created to their _id
-              // sessionController.startSession(data._id)
-              next();
-            })
-            .catch(err => console.log(err));
+          db.one(`SELECT * FROM users WHERE username = $1;`, [
+            req.body.username
+          ]).then(data => {
+            console.log(data);
+            cookieController.setSSIDCookie(res, data._id); //set SSIDCookie after user created to their _id
+            sessionController.startSession(data._id);
+            res.send({ authenticated: true });
+          });
         })
         .catch(error => {
           console.log(error);
           next();
         });
       // Add user to 'users' table. Table has columns (_id, username (varchar(20)), password varchar(256))
-
-      db.one('SELECT * FROM users WHERE username = ${req.body.username}')
-        .then(data => {
-          console.log(data);
-          cookieController.setSSIDCookie(res, data._id); //set SSIDCookie after user created to their _id
-          sessionController.startSession(data._id);
-          next();
-        })
-        .catch(err => console.log(err));
-      res.send('check ur cookies');
     });
   },
 
   // User Log In
   loginUser: (req, res, next) => {
     db.any(
-      `SELECT users._id, password, users.username FROM users WHERE username = '${req.body.username}';`,[true]
+      `SELECT users._id, password, users.username FROM users WHERE username = '${
+        req.body.username
+      }';`,
+      [true]
     )
       .then(data => {
         console.log(data);
@@ -65,8 +56,8 @@ module.exports = {
         bcrypt.compare(req.body.password, data[0].password, (err, response) => {
           try {
             if (response) {
-              cookieController.setUserCookie(res, data[0].username)
-              cookieController.setSSIDCookie(res, data[0]._id)
+              cookieController.setUserCookie(res, data[0].username);
+              cookieController.setSSIDCookie(res, data[0]._id);
               next();
             } else return res.redirect('/api/signup');
           } catch (err) {

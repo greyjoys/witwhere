@@ -12,15 +12,13 @@ function initializeSocketService(server) {
 
     console.log(socket.id);
     connections.push(socket.id);
-    console.log('someone joined');
-    console.log('current connections', connections);
-    // socket.emit("player_joined", "welcome");
-    setInterval(() => {
-      socket.emit('message', 'hello');
-      // for (let i = 0; i < connections.length; i += 1) {
-      //   socket.to(connections[i]).emit('message', i);
-      // }
-    }, 1000);
+
+    // setInterval(() => {
+    // socket.emit('message', 1);
+    // for (let i = 0; i < connections.length; i += 1) {
+    //   socket.to(connections[i]).emit('message', i);
+    // }
+    // }, 1000);
 
     socket.on('CREATE', () => {
       const reqSocketId = socket.id;
@@ -32,14 +30,14 @@ function initializeSocketService(server) {
       // add socketID to connections within the game Session
     });
 
-    /* 
-    Handles any events labeled move.
-  */
+    /*
+      Handles any events labeled move.
+    */
     socket.on('ADD_RESPONSE', req => {});
 
-    /* 
-    Handles disconnecting events
-  */
+    /*
+      Handles disconnecting events
+    */
     socket.on('SUBMIT_VOTE', payload => {
       console.log('player disconnected');
     });
