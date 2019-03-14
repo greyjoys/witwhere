@@ -6,7 +6,6 @@ import store from './store';
 import { createStore, applyMiddleware } from 'redux';
 
 import App from './App.jsx';
-import Commodore64 from './styles/fonts/Commodore64.TTF';
 
 require('./styles/css/index.css');
 
