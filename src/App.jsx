@@ -23,7 +23,6 @@ class App extends Component {
           <hr />
           <Route path={'/'} component={ AuthContainer } />
           <Route path={'/main'} component={ MainContainer } />
-<<<<<<< HEAD
           <Route path={'/waiting'} component={ Waiting } />
           <Route path={'/voting'} component={ Voting } />
           <Route path={'/results'} component={ Results } />
@@ -32,8 +31,6 @@ class App extends Component {
           <Route path={'/auth/signup'} component={ Signup } />
           {/* <Route path={'/login'} render={() => <Login {...this.props} />} />
           <Route path={'/signup'} render={() => <Signup {...this.props} />} /> */}
-=======
->>>>>>> 2c65d6132f5579faf87311fb168abd8c48c20a39
         </React.Fragment>
       </Router>
     );
