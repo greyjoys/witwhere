@@ -10,8 +10,8 @@ const initialState = {
   player1username: 'Player1',
   player2username: 'Player2',
   prompt: '',
-  overallGamesState: 0,
-  maxPlayers: 5,
+  overallGameState: 'start',
+  maxPlayers: 3,
   maxPoints: 5,
   roundState: 1,
   webSocket: undefined,
@@ -42,13 +42,12 @@ const mainReducer = (state = initialState, action) => {
         gid: newGid
       };
     }
-    case types.ADVANCE_STAGE: {
-      let newStageValue = state.gameStage + 1;
-      if (newStageValue === 6) newStageValue = 1;
-
+    case types.SET_NEW_GAME_STATE: {
+      let newGameState = action.payload;
+      console.log('newGameState:', newGameState);
       return {
         ...state,
-        gameStage: newStageValue
+        ...newGameState
       };
     }
 

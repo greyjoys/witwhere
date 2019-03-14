@@ -13,15 +13,16 @@ interface createGameConfig {
 }
 
 enum overallGameState {
-  waiting = 0,
-  active,
-  end
+  waiting = 0, // waiting for other players to join
+  active, // game has started
+  end // game is over.
 }
 
 enum roundState {
   not_active = 1,
-  waiting_for_responses,
-  voting
+  response,
+  voting,
+  final // final only shows after there is a winner
 }
 
 interface GameSession {
