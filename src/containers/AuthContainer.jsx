@@ -9,6 +9,8 @@ import {
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
+import Signup from '../components/Signup.jsx';
+import Login from '../components/Login.jsx';
 
 const mapStateToProps = store => ({
   playerName: store.auth.playerName,
@@ -28,6 +30,9 @@ const mapDispatchToProps = dispatch => ({
   // },
   addPlayer: (playerName, playerPass) => {
     dispatch(actions.addPlayer(playerName, playerPass));
+  },
+  login: (playerName, playerPass) => {
+    dispatch(actions.login(playerName, playerPass));
   }
 });
 

@@ -1,6 +1,7 @@
 import * as types from '../const/actionTypes';
 
 const initialState = {
+
   gid: -1,
   username: 'defaultplayer',
   users: {},
@@ -13,7 +14,6 @@ const initialState = {
   maxPlayers: 3,
   maxPoints: 5,
   roundState: 1,
-  //
   webSocket: undefined
 };
 
@@ -96,13 +96,21 @@ const mainReducer = (state = initialState, action) => {
     //   }
     // }
 
-    case types.ADD_PLAYER_FAILURE: {
-      let newPlayerName = action.payload;
-      let newPlayerPass = action.payload;
+    case types.LOGIN_FAILURE: {
+      const loginError = action.payload;
+      console.log('login error', action.payload)
       return {
         ...state,
-        playerPass: newPlayerPass,
-        playerName: newPlayerName
+        loginError,
+      };
+    }
+
+    case types.SIGNUP_FAILURE: {
+      const signUpError = action.payload;
+      console.log('signup error', action.payload)
+      return {
+        ...state,
+        signUpError,
       };
     }
 

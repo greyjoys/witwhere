@@ -6,13 +6,6 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import MainContainer from './containers/MainContainer.jsx';
 import AuthContainer from './containers/AuthContainer.jsx';
 
-import Waiting from './components/game-components/Waiting.jsx';
-import Voting from './components/game-components/Voting.jsx';
-import Results from './components/game-components/Results.jsx';
-import Final from './components/game-components/Final.jsx';
-import Signup from './components/Signup.jsx';
-import Login from './components/Login.jsx';
-
 import * as actions from './actions/actions';
 
 const mapStateToProps = store => ({
