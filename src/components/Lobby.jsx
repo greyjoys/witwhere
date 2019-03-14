@@ -1,19 +1,15 @@
 import React from 'react';
 
-const Lobby = props => {
+const lobby = props => {
+  let presentUsers = Object.keys(props.users);
+  presentUsers.map(item => <h3>{ item }</h3>);
 
   return (
     <div className='lobby-box'> 
-      <button onClick={ props.createGame }>Create Game</button>
-      <button onClick={ props.joinGame }>Join Game</button>
-      <input 
-        id="game-id" 
-        name="game-id"
-        type="text"
-        onChange={ props.updateGameId } 
-      />
+      <h2>Game: { props.gid }</h2>
+      { presentUsers }
     </div>
   );
 };
 
-export default Lobby;
+export default lobby;

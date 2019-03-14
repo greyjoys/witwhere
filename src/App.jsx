@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 
 // Import Children
 
-import Lobby from './components/Lobby.jsx';
+import Menu from './components/Menu.jsx';
 import MainContainer from './containers/MainContainer.jsx';
 import AuthContainer from './containers/AuthContainer.jsx';
 
@@ -43,7 +43,7 @@ class App extends Component {
         <React.Fragment>
           <h1>**** WITWHERE 64 V1.00 BASIC V2 ****</h1>
           <Route path={'/'} component={AuthContainer} />
-          <Route path={'/lobby'} component={Lobby} />
+          <Route path={'/menu'} component={Menu} />
           <Route path={'/main'} component={MainContainer} />
         </React.Fragment>
       </Router>
@@ -51,9 +51,4 @@ class App extends Component {
   }
 }
 
-// export default App;
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default App;
