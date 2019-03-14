@@ -1,5 +1,6 @@
 const socketIO = require('socket.io');
 const GameManager = require('./lib/GameManagerModel');
+const gameController = require('./gameController');
 
 function initializeSocketService(server) {
   const io = socketIO(server);
@@ -9,38 +10,41 @@ function initializeSocketService(server) {
     /* 
     Handles join events
   */
-
-    console.log(socket.id);
     connections.push(socket.id);
 
-    // setInterval(() => {
-    // socket.emit('message', 1);
-    // for (let i = 0; i < connections.length; i += 1) {
-    //   socket.to(connections[i]).emit('message', i);
-    // }
-    // }, 1000);
+    setInterval(() => {
+      for (let i = 0; i < connections.length; i += 1) {
+        // to emit heartbeat
+        io.to(connections[i]).emit('message', `heart beat for ${i}`);
+      }
+    }, 1000);
 
     socket.on('CREATE', () => {
-      const reqSocketId = socket.id;
-      const newGid = GameManager.createGame();
-      socket.to(reqSocketId).emit('CREATE', newGid);
+      gameController.createGame(socket);
     });
 
     socket.on('JOIN', req => {
-      // add socketID to connections within the game Session
+      console.log(socket);
+      gameController.joinGame(socket, req, io);
     });
 
     /*
       Handles any events labeled move.
     */
-    socket.on('ADD_RESPONSE', req => {});
+    socket.on('ADD_RESPONSE', req => {
+      gameController.addResponse(socket, req, io);
+    });
 
     /*
       Handles disconnecting events
     */
-    socket.on('SUBMIT_VOTE', payload => {
+    socket.on('SUBMIT_VOTE', req => {
+      gameController.submitVote(socket, req, io);
+    });
+
+    socket.on('disconnect', () => {
       console.log('player disconnected');
     });
   });
 }
-module.exports = initializeSocketService;
+module.exports = { initializeSocketService };

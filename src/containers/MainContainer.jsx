@@ -22,12 +22,18 @@ const mapStateToProps = store => ({
   prompt: store.main.prompt,
   playerList: store.main.playerList,
   maxPoints: store.main.maxPoints,
-  maxPlayers: store.main.maxPlayers
+  maxPlayers: store.main.maxPlayers,
+  username: store.main.username,
+  //
+  ws: store.main.webSocket
 });
 
 const mapDispatchToProps = dispatch => ({
   addSocket: ws => {
     dispatch(actions.addWebSocketToStore(ws));
+  },
+  addGid: gid => {
+    dispatch(actions.addGid(gid));
   }
 });
 
@@ -36,18 +42,48 @@ const mapDispatchToProps = dispatch => ({
 class MainContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      gidTextBox: ''
+    };
+    this.createNewGame = this.createNewGame.bind(this);
+    this.joinGame = this.joinGame.bind(this);
+    this.handleGidTextBoxChange = this.handleGidTextBoxChange.bind(this);
   }
 
-  componentDidMount() {
-    console.log('initiating socket connection');
+  componentWillMount() {
+    // console.log('initiating socket connection');
     const socket = io('http://localhost:8000');
     // socket.on('message', data => console.log(data));
-    socket.on('message', data => {
-      this.props.testSocket(data);
+    // socket.on('message', data => {
+    // this.props.testSocket(data);
+    // console.log(data);
+    // });
+    // console.log(this.props);
+    socket.on('message', msg => {
+      console.log('from message', msg);
+    });
+
+    this.props.addSocket(socket);
+  }
+
+  handleGidTextBoxChange(e) {
+    this.setState({
+      gidTextBox: e.target.value
+    });
+  }
+
+  createNewGame(ws, addGid) {
+    ws.emit('CREATE', 'hello');
+    ws.on('CREATE_RES', gid => {
+      addGid(gid);
+    });
+  }
+
+  joinGame(ws, gid, username) {
+    ws.emit('JOIN', { gid, username });
+    ws.on('JOIN_RES', data => {
       console.log(data);
     });
-    console.log(this.props);
-    // this.props.addSocket(socket);
   }
 
   render() {
@@ -55,7 +91,16 @@ class MainContainer extends Component {
       <Router>
         <main className="main-container">
           {/* <Route path="/" render={() => <Lobby />} /> */}
-          <Menu />
+          <Menu
+            handleCreateNewGame={this.createNewGame}
+            ws={this.props.ws}
+            reduxAddGid={this.props.addGid}
+            handleJoinGame={this.joinGame}
+            gid={this.props.gid}
+            handleGidTextBoxChange={this.handleGidTextBoxChange}
+            gidTextBoxValue={this.state.gidTextBox}
+            username={this.props.username}
+          />
           <Waiting />
           <Voting />
           <Results />

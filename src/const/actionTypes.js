@@ -11,7 +11,7 @@ export const SUBMIT_ANSWER = 'SUBMIT_ANSWER';
 export const SET_GAME_READY = 'SET_GAME_READY';
 export const SET_TIMER_EXPIRED = 'SET_TIMER_EXPIRED';
 export const UPDATE_GAME_STAGE = 'UPDATE_GAME_STAGE';
-export const START_GAME = 'START_GAME';
+export const ADD_GAME_ID = 'ADD_GAME_ID';
 
 export const LOGIN_USER = 'LOGIN_USER';
 export const TEST_SOCKET = 'TEST_SOCKET';
@@ -21,6 +21,8 @@ export const UPDATE_FOOTER_INPUT = 'UPDATE_FOOTER_INPUT';
 
 export const TEST_BUTTON = 'TEST_BUTTON';
 export const TEST_ACTION = 'TEST_ACTION';
+
+export const ADD_SOCKET_TO_STORE = 'ADD_SOCKET_TO_STORE';
 // Stretch Goals:
 // export const UPDATE_P1_VOTE_COUNT = 'UPDATE_P1_VOTE_COUNT';
 // export const UPDATE_P2_VOTE_COUNT = 'UPDATE_P2_VOTE_COUNT';

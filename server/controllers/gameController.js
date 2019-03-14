@@ -1,32 +1,33 @@
-const GameManager = require('./controllers/lib/GameManagerModel');
-
+const GameManager = require('./lib/GameManagerModel');
+const { io } = require('../index');
 module.exports = {
   createGame: socket => {
-    const reqSocketId = socket.id;
+    // const reqSocketId = socket.id;
     const newGid = GameManager.createGame();
-    socket.to(reqSocketId).emit('CREATE', newGid);
+    console.log('new gid to send', newGid);
+    socket.emit('CREATE_RES', newGid);
   },
 
-  joinGame: (socket, req) => {
+  joinGame: (socket, req, io) => {
     const reqSocketId = socket.id;
     // verify that gid is correct
     const { gid, username } = req;
+
     const game = GameManager.getGame(gid);
     if (!game) {
       socket.to(reqSocketId).emit('JOIN', false);
     } else {
       game.addUser(username, reqSocketId);
     }
-
     // run a check if the game can start
     if (GameManager.getGame(gid).canStartGame()) {
       GameManager.getGame(gid).getPrompt();
     }
 
-    GameManager.getGame(gid).sendStateToPlayers(socket);
+    GameManager.getGame(gid).sendStateToPlayers(io);
   },
 
-  addResponse: (socket, req) => {
+  addResponse: (socket, req, io) => {
     const { gid, playerNumber, response } = req;
     const game = GameManager.getGame(gid);
     game.addResponse(playerNumber, response);
@@ -36,7 +37,7 @@ module.exports = {
     game.sendStateToPlayers(socket);
   },
 
-  submitVote: (socket, req) => {
+  submitVote: (socket, req, io) => {
     const { gid, playerNumber } = req;
     const game = GameManager.getGame(gid);
     game.submitVote(playerNumber);

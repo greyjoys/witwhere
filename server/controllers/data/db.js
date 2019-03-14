@@ -28,7 +28,7 @@ module.exports = {
           ]).then(data => {
             console.log(data);
             cookieController.setSSIDCookie(res, data._id); //set SSIDCookie after user created to their _id
-            sessionController.startSession(data._id);
+            // sessionController.startSession(data._id);
             res.send({ authenticated: true });
           });
         })

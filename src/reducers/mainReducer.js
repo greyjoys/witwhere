@@ -1,22 +1,20 @@
 import * as types from '../const/actionTypes';
 
 const initialState = {
-  playerName: '',
-  playerPass: '',
-  playerList: [{ id: '', ready: false, answer: '' }],
-  promptList: [
-    `A bad time to shake someone's hand`,
-    "Tony, I've got some bad news:"
-  ],
-  p1Answer: '',
-  p2Answer: '',
-  gameReady: false,
-  timer: '',
-  gameStage: 1,
-  count: 0,
-  p1AnswerVoteCount: 0,
-  p2AnswerVoteCount: 0,
-  footerInput: ''
+  gid: -1,
+  username: 'defaultplayer',
+  users: {},
+  player1response: {},
+  player2response: {},
+  player1username: 'Player1',
+  player2username: 'Player2',
+  prompt: '',
+  overallGamesState: 0,
+  maxPlayers: 5,
+  maxPoints: 5,
+  roundState: 1,
+  //
+  webSocket: undefined
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -27,6 +25,21 @@ const mainReducer = (state = initialState, action) => {
   };
 
   switch (action.type) {
+    case types.ADD_SOCKET_TO_STORE: {
+      const ws = action.payload;
+      return {
+        ...state,
+        webSocket: ws
+      };
+    }
+
+    case types.ADD_GAME_ID: {
+      const newGid = action.payload;
+      return {
+        ...state,
+        gid: newGid
+      };
+    }
     case types.ADVANCE_STAGE: {
       let newStageValue = state.gameStage + 1;
       if (newStageValue === 6) newStageValue = 1;
@@ -37,14 +50,6 @@ const mainReducer = (state = initialState, action) => {
       };
     }
 
-    case types.TEST_SOCKET: {
-      const newCount = (state.count += 1);
-
-      return {
-        ...state,
-        count: newCount
-      };
-    }
     case types.UPDATE_FOOTER_INPUT: {
       let newFooterInput = action.payload;
 
@@ -102,9 +107,9 @@ const mainReducer = (state = initialState, action) => {
       };
     }
 
-    case types.START_GAME: {
-      return { ...state, ...action.payload };
-    }
+    // case types.START_GAME: {
+    //   return { ...state, ...action.payload };
+    // }
     case types.LOGIN_USER: {
       return {
         ...state
