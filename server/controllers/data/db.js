@@ -30,7 +30,6 @@ module.exports = {
           ]).then((data) => {
             console.log('logging ', data);
             cookieController.setSSIDCookie(res, data._id); //set SSIDCookie after user created to their _id
-            console.log('sending data')
             res.send({ authenticated: true });
           });
         })

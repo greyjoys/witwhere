@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  mode: 'development',// process.env.NODE_ENV,
+  mode: 'development', // process.env.NODE_ENV,
   entry: path.resolve('./src', 'index.js'),
   output: { path: path.resolve(__dirname, 'build'), filename: 'bundle.js' },
   module: {
@@ -23,10 +23,7 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: [path.resolve(__dirname, 'node_modules')],
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader'}
-        ]
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
       },
       {
         test: /\.TTF$/,

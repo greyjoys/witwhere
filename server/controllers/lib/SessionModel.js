@@ -17,14 +17,14 @@ class GameSession {
     this.prompts = [...prompts];
   }
 
-  sendMessageToPlayers(socket, message) {
-    Object.values(this.users).forEach(user => {
-      socket.to(user.socket).emit(JSON.stringify(message));
-    });
+  sendStateToPlayers(io) {
+    this.sendMessageToPlayers(io, this.getGameState());
   }
 
-  sendStateToPlayers(socket) {
-    sendMessageToPlayers(socket, this.getGameState());
+  sendMessageToPlayers(io, message) {
+    Object.values(this.users).forEach(user => {
+      io.to(user.socket).emit('message', JSON.stringify(message));
+    });
   }
 
   addUser(username, socket) {
