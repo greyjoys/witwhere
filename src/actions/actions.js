@@ -10,9 +10,9 @@ export const updatePlayerPass = e => ({
   payload: e.target.value
 });
 
-export const signUpFailure = (error) => ({
+export const signUpFailure = (error, boolean) => ({
   type: types.SIGNUP_FAILURE,
-  payload: error
+  payload: [error, boolean]
 });
 
 export const loginFailure = (error) => ({
@@ -31,7 +31,7 @@ export function addPlayer(username, password) {
     username,
     password
   });
-  console.log('jsonified', stringified);
+
   
   return dispatch => {
     
@@ -47,12 +47,11 @@ export function addPlayer(username, password) {
     })
     .then(res => res.json())
     .then(newState => {
-      console.log('inside then with status ', res.error)
       dispatch(startGame(newState))
     },
-    err => console.log(err)
+    // err => dispatch(signUpFailure("Username already in use!"))
     )
-    .catch(err => dispatch(signUpFailure("Username already in use!")))
+    .catch(err => dispatch(signUpFailure("Username already in use!", true)))
   };
 }
 

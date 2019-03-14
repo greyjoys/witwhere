@@ -9,8 +9,13 @@ import {
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
+
+import Login from '../components/Login.jsx'
+import Signup from '../components/Signup.jsx'
+
 import Signup from '../components/Signup.jsx';
 import Login from '../components/Login.jsx';
+
 
 const mapStateToProps = store => ({
   playerName: store.auth.playerName,
@@ -41,6 +46,7 @@ const mapDispatchToProps = dispatch => ({
 class AuthContainer extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isLoggedIn: false,
       userClickedButton: null
@@ -55,6 +61,36 @@ class AuthContainer extends Component {
 
   signUpClicked() {
     this.setState({ userClickedButton: 'signup' });
+
+
+    }
+
+  
+  render(props) {
+    console.log(this.props)
+    return (
+      <Router>
+        <div className="auth-container">
+          <h1>Inside auth container</h1>
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Sign Up</Link>
+          
+          <Route path={"/login"}
+          render ={ (props) =>{
+            return(
+            <Login {...this.props}/>
+            )
+          }}
+    
+          />
+          <Route path={"/signup"}
+          render ={ (props) => {
+            return(
+            <Signup {...this.props}/>
+            )
+          }}
+          />
+
   }
 
   render() {
@@ -68,9 +104,20 @@ class AuthContainer extends Component {
     return (
       <Router>
         <div className="auth-container">
+
           <h1>Inside auth container</h1>
           <button onClick={this.loginClicked}>Login</button>
           <button onClick={this.signUpClicked}>Sign Up</button>
+
+          <h1>Are you ready to do the thing?</h1>
+          <Link to='/login'>Login</Link>
+          <Link to='/signup'>Sign Up</Link>
+          <Route 
+            path={'/login'} 
+            render={props => <Login {...props} /> } 
+          />
+          <Route path={'/signup'} component={ Signup } />
+
         </div>
       </Router>
     );

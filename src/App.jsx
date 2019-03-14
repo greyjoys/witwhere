@@ -47,6 +47,15 @@ class App extends Component {
             path={'/auth/signup'}
             render={props => <Signup {...this.props} />}
           />
+          <Route path={'/'} component={ AuthContainer } />
+          <Route path={'/main'} component={ MainContainer } />
+
+          <Route path={'/waiting'} component={ Waiting } />
+          <Route path={'/voting'} component={ Voting } />
+          <Route path={'/results'} component={ Results } />
+          <Route path={'/final'} component={ Final } />
+          <Route path={'/auth/login'} component={ Login } />
+          <Route path={'/auth/signup'} component={ Signup } />
         </React.Fragment>
       </Router>
     );

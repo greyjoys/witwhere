@@ -34,7 +34,7 @@ module.exports = {
           });
         })
         .catch(err => {
-          console.log('sending error')
+          console.log('sending error, username already in use')
           res.json({ error: err })
           // const responseObj = {};
           // responseObj.error = err;
