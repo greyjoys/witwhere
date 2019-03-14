@@ -4,7 +4,7 @@ module.exports = {
   createGame: socket => {
     // const reqSocketId = socket.id;
     const newGid = GameManager.createGame();
-    console.log('new gid to send', newGid);
+    console.log('Created new game with game id of: ', newGid);
     socket.emit('CREATE_RES', newGid);
   },
 
@@ -21,6 +21,7 @@ module.exports = {
     }
     // run a check if the game can start
     if (GameManager.getGame(gid).canStartGame()) {
+      GameManager.getGame(gid).randomlySelectPlayer();
       GameManager.getGame(gid).getPrompt();
     }
 

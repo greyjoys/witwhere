@@ -54,14 +54,13 @@ class MainContainer extends Component {
   componentWillMount() {
     // console.log('initiating socket connection');
     const socket = io('http://localhost:8000');
-    // socket.on('message', data => console.log(data));
-    // socket.on('message', data => {
-    // this.props.testSocket(data);
-    // console.log(data);
-    // });
-    // console.log(this.props);
+    // test heart beat
     socket.on('message', msg => {
       console.log('from message', msg);
+    });
+
+    socket.on('newState', newState => {
+      console.log(newState);
     });
 
     this.props.addSocket(socket);
@@ -74,7 +73,7 @@ class MainContainer extends Component {
   }
 
   createNewGame(ws, addGid) {
-    ws.emit('CREATE', 'hello');
+    ws.emit('CREATE', '');
     ws.on('CREATE_RES', gid => {
       addGid(gid);
     });

@@ -23,7 +23,7 @@ class GameSession {
 
   sendMessageToPlayers(io, message) {
     Object.values(this.users).forEach(user => {
-      io.to(user.socket).emit('message', JSON.stringify(message));
+      io.to(user.socket).emit('newState', JSON.stringify(message));
     });
   }
 
@@ -39,6 +39,25 @@ class GameSession {
       return true;
     }
     return false;
+  }
+
+  randomlySelectPlayers() {
+    let player1 = Object.keys(this.users)[
+      Math.floor(Math.random() * Object.keys(this.users).length)
+    ];
+
+    let player2 = Object.keys(this.users)[
+      Math.floor(Math.random() * Object.keys(this.users).length)
+    ];
+
+    while (player2 === player1) {
+      player2 = Object.keys(this.users)[
+        Math.floor(Math.random() * Object.keys(this.users).length)
+      ];
+    }
+
+    this.player1username = player1;
+    this.player2username = player2;
   }
 
   getPrompt() {
