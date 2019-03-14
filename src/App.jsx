@@ -10,6 +10,8 @@ import Waiting from './components/game-components/Waiting.jsx';
 import Voting from './components/game-components/Voting.jsx';
 import Results from './components/game-components/Results.jsx';
 import Final from './components/game-components/Final.jsx';
+import Signup from './components/Signup.jsx';
+import Login from './components/Login.jsx';
 
 import * as actions from './actions/actions';
 
@@ -32,6 +34,8 @@ class App extends Component {
           <Route path={'/voting'} component={ Voting } />
           <Route path={'/results'} component={ Results } />
           <Route path={'/final'} component={ Final } />
+          <Route path={'/auth/login'} component={ Login } />
+          <Route path={'/auth/signup'} component={ Signup } />
         </React.Fragment>
       </Router>
     );

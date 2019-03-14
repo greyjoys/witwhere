@@ -10,8 +10,10 @@ const cookieController = require('../cookie/cookieController.js');
 
 module.exports = {
   // User Sign Up
+  // adds the new user to the db
+  // Add user to 'users' table. Table has columns (_id, username (varchar(20)), password varchar(256))
   createUser: (req, res, next) => {
-    console.log(req.body);
+    console.log('req body ' , req.body);
     const saltRounds = 10;
     bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
       if (err) {
@@ -25,40 +27,40 @@ module.exports = {
         .then(() => {
           db.one(`SELECT * FROM users WHERE username = $1;`, [
             req.body.username
-          ]).then(data => {
-            console.log(data);
+          ]).then((data) => {
+            console.log('logging ', data);
             cookieController.setSSIDCookie(res, data._id); //set SSIDCookie after user created to their _id
-            // sessionController.startSession(data._id);
             res.send({ authenticated: true });
           });
         })
-        .catch(error => {
-          console.log(error);
-          next();
-        });
+        .catch(err => {
+          console.log('sending error')
+          res.json({ error: err })
+          // const responseObj = {};
+          // responseObj.error = err;
+          // res.send(responseObj);
+        })
+    
       // Add user to 'users' table. Table has columns (_id, username (varchar(20)), password varchar(256))
     });
   },
 
   // User Log In
   loginUser: (req, res, next) => {
-    db.any(
-      `SELECT users._id, password, users.username FROM users WHERE username = '${
-        req.body.username
-      }';`,
-      [true]
-    )
+    db.one(`SELECT * FROM users WHERE username = $1;`, [req.body.username])
       .then(data => {
         console.log(data);
         if (data.length === 0) {
           return res.redirect('/api/signup');
         }
-        bcrypt.compare(req.body.password, data[0].password, (err, response) => {
+        
+        bcrypt.compare(req.body.password, data.password, (err, isMatch) => {
           try {
-            if (response) {
-              cookieController.setUserCookie(res, data[0].username);
-              cookieController.setSSIDCookie(res, data[0]._id);
-              next();
+            if (isMatch) {
+              console.log('theres a match!')
+              cookieController.setUserCookie(res, data.username);
+              cookieController.setSSIDCookie(res, data._id);
+              res.send({ authenticated: true });
             } else return res.redirect('/api/signup');
           } catch (err) {
             console.log('Bcrypt Error:', err);

@@ -10,9 +10,14 @@ export const updatePlayerPass = e => ({
   payload: e.target.value
 });
 
-export const addPlayerFailure = () => ({
-  type: types.ADD_PLAYER_FAILURE,
-  payload: ''
+export const signUpFailure = (error) => ({
+  type: types.SIGNUP_FAILURE,
+  payload: error
+});
+
+export const loginFailure = (error) => ({
+  type: types.LOGIN_FAILURE,
+  payload: error
 });
 
 export const advanceStage = () => ({
@@ -26,8 +31,39 @@ export function addPlayer(username, password) {
     password
   });
   console.log('jsonified', stringified);
+  
   return dispatch => {
+    
     fetch('/api/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
+    })
+    .then(res => res.json())
+    .then(newState => {
+      console.log('inside then with status ', res.error)
+      dispatch(startGame(newState))
+    },
+    err => console.log(err)
+    )
+    .catch(err => dispatch(signUpFailure("Username already in use!")))
+  };
+}
+
+export function login(username, password) {
+  console.log('inside LOGIN player', username, password);
+  const stringified = JSON.stringify({
+    username,
+    password
+  });
+  console.log('jsonified', stringified);
+  return dispatch => {
+    fetch('/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -40,7 +76,7 @@ export function addPlayer(username, password) {
       .then(res => res.json())
       .then(
         newState => dispatch(startGame(newState)),
-        err => dispatch(addPlayerFailure())
+        err => dispatch(loginFailure("Wrong Password"))
       );
   };
 }
