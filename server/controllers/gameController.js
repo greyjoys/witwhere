@@ -21,7 +21,7 @@ module.exports = {
     }
     // run a check if the game can start
     if (GameManager.getGame(gid).canStartGame()) {
-      GameManager.getGame(gid).randomlySelectPlayer();
+      GameManager.getGame(gid).randomlySelectPlayers();
       GameManager.getGame(gid).getPrompt();
     }
 
@@ -29,24 +29,27 @@ module.exports = {
   },
 
   addResponse: (socket, req, io) => {
-    const { gid, playerNumber, response } = req;
+    const { gid, playerNumber, response } = JSON.parse(req);
     const game = GameManager.getGame(gid);
     game.addResponse(playerNumber, response);
 
-    game.didBothPlayerSubmitResponse();
+    game.didBothPlayersSubmitResponses();
 
-    game.sendStateToPlayers(socket);
+    game.sendStateToPlayers(io);
   },
 
   submitVote: (socket, req, io) => {
-    const { gid, playerNumber } = req;
+    console.log('inside submit vote inside game controller');
+    const { gid, player } = req;
     const game = GameManager.getGame(gid);
-    game.submitVote(playerNumber);
+    game.addVote(player);
     if (game.didAllObserversVote()) {
+      console.log('all observers voted');
       const results = game.determineRoundWinner();
 
-      const gameState = game.getGameState();
-      game.sendMessageToPlayers(socket, { results, gameState });
+      // const gameState = game.getGameState();
+      // game.sendMessageToPlayers(socket, { results, gameState });
+      game.sendStateToPlayers(io);
     }
   }
 };

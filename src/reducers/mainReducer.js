@@ -9,8 +9,8 @@ const initialState = {
   player1username: 'Player1',
   player2username: 'Player2',
   prompt: '',
-  overallGamesState: 0,
-  maxPlayers: 5,
+  overallGameState: 'start',
+  maxPlayers: 3,
   maxPoints: 5,
   roundState: 1,
   //
@@ -40,10 +40,12 @@ const mainReducer = (state = initialState, action) => {
         gid: newGid
       };
     }
-    case types.START_GAME: {
-      state = action.payload;
+    case types.SET_NEW_GAME_STATE: {
+      let newGameState = action.payload;
+      console.log('newGameState:', newGameState);
       return {
-        state
+        ...state,
+        ...newGameState
       };
     }
 

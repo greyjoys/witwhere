@@ -74,8 +74,10 @@ class GameSession {
   addResponse(playerNumber, response) {
     if (playerNumber === 1) {
       this.player1response.response = response;
+      this.player1response.votes = 0;
     } else {
       this.player2response.response = response;
+      this.player2response.votes = 0;
     }
   }
 
@@ -87,18 +89,23 @@ class GameSession {
     return false;
   }
 
-  submitVote(player) {
-    if (player === 1) {
+  addVote(player) {
+    if (player === '1') {
       this.player1response.votes += 1;
     } else {
       this.player2response.votes += 1;
     }
+    console.log(
+      'votes after incrementing',
+      this.player1response.votes,
+      this.player2response.votes
+    );
   }
 
   didAllObserversVote() {
     if (
       this.player1response.votes + this.player2response.votes ===
-      this.users.length
+      Object.keys(this.users).length - 2
     ) {
       return true;
     }

@@ -13,7 +13,7 @@ import Final from '../components/game-components/Final.jsx';
 import Menu from '../components/Menu.jsx';
 
 const mapStateToProps = store => ({
-  gameStage: store.main.gameStage,
+  roundState: store.main.roundState,
   gid: store.main.gid,
   overallGameState: store.main.overallGameState,
   player1username: store.main.player1username,
@@ -24,7 +24,8 @@ const mapStateToProps = store => ({
   playerList: store.main.playerList,
   maxPoints: store.main.maxPoints,
   maxPlayers: store.main.maxPlayers,
-  username: store.main.username,
+  // username from auth store
+  username: store.auth.playerName,
   //
   ws: store.main.webSocket
 });
@@ -36,8 +37,8 @@ const mapDispatchToProps = dispatch => ({
   addGid: gid => {
     dispatch(actions.addGid(gid));
   },
-  startGame: gameState => {
-    dispatch(actions.startGame(gameState));
+  setNewGameState: gameState => {
+    dispatch(actions.setNewGameState(gameState));
   }
 });
 
@@ -47,11 +48,15 @@ class MainContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gidTextBox: ''
+      gidTextBox: '',
+      responseTextBox: 'this is the response text box'
     };
     this.createNewGame = this.createNewGame.bind(this);
     this.joinGame = this.joinGame.bind(this);
     this.handleGidTextBoxChange = this.handleGidTextBoxChange.bind(this);
+    this.submitResponse = this.submitResponse.bind(this);
+    this.handleResponseTextChanges = this.handleResponseTextChanges.bind(this);
+    this.handleVoteClick = this.handleVoteClick.bind(this);
   }
 
   componentWillMount() {
@@ -63,8 +68,7 @@ class MainContainer extends Component {
     });
 
     socket.on('newState', newState => {
-      console.log(newState);
-      this.props.startGame(newState);
+      this.props.setNewGameState(newState);
     });
 
     this.props.addSocket(socket);
@@ -85,32 +89,115 @@ class MainContainer extends Component {
 
   joinGame(ws, gid, username) {
     ws.emit('JOIN', { gid, username });
-    ws.on('JOIN_RES', data => {
-      console.log(data);
+    // ws.on('JOIN_RES', data => {
+    //   console.log(data);
+    // });
+  }
+
+  submitResponse(ws, gid) {
+    let playerNumber;
+    if (this.props.username === this.props.player1username) {
+      playerNumber = 1;
+    } else {
+      playerNumber = 2;
+    }
+    ws.emit(
+      'ADD_RESPONSE',
+      JSON.stringify({
+        gid,
+        playerNumber,
+        response: this.state.responseTextBox
+      })
+    );
+  }
+
+  handleResponseTextChanges(e) {
+    this.setState({
+      responseTextBox: e.target.value
     });
   }
 
+  handleVoteClick(e) {
+    console.log('handle vote click');
+    console.log(e.target.name);
+    this.props.ws.emit(
+      'SUBMIT_VOTE',
+      JSON.stringify({
+        gid: this.props.gid,
+        player: e.target.name
+      })
+    );
+  }
+
   render() {
+    const menuJSX = [];
+    const components = [];
+    if (this.props.overallGameState === 'start') {
+      components.push(
+        <Menu
+          handleCreateNewGame={this.createNewGame}
+          ws={this.props.ws}
+          reduxAddGid={this.props.addGid}
+          handleJoinGame={this.joinGame}
+          gid={this.props.gid}
+          handleGidTextBoxChange={this.handleGidTextBoxChange}
+          gidTextBoxValue={this.state.gidTextBox}
+          username={this.props.username}
+        />
+      );
+    }
+
+    let waitingJSX;
+    if (
+      this.props.overallGameState === 1 &&
+      (this.props.username === this.props.player1username ||
+        this.props.username === this.props.player2username)
+    ) {
+      waitingJSX = (
+        <Waiting
+          updateResponse={this.handleResponseTextChanges}
+          submitResponse={this.submitResponse}
+          ws={this.props.ws}
+          gid={this.props.gid}
+          responseText={this.state.responseTextBox}
+        />
+      );
+    }
+
+    let votingJSX;
+    if (
+      this.props.overallGameState === 1 &&
+      this.props.roundState === 3 &&
+      (this.props.username !== this.props.player1username &&
+        this.props.username !== this.props.player2username)
+    ) {
+      console.log('adding voting jsx');
+      votingJSX = (
+        <Voting
+          response1={this.props.player1response.response}
+          response2={this.props.player2response.response}
+          handleVoteClick={this.handleVoteClick}
+          ws={this.props.ws}
+          gid={this.props.gid}
+        />
+      );
+    }
     return (
-      <Router>
-        <main className="main-container">
-          {/* <Route path="/" render={() => <Lobby />} /> */}
-          <Menu
-            handleCreateNewGame={this.createNewGame}
-            ws={this.props.ws}
-            reduxAddGid={this.props.addGid}
-            handleJoinGame={this.joinGame}
-            gid={this.props.gid}
-            handleGidTextBoxChange={this.handleGidTextBoxChange}
-            gidTextBoxValue={this.state.gidTextBox}
-            username={this.props.username}
-          />
-          <Waiting />
-          <Voting />
-          <Results />
-          <Final />
-        </main>
-      </Router>
+      // <Router>
+      <main className="main-container">
+        {/* <Route path="/" render={() => <Lobby />} /> */}
+        {components}
+        {waitingJSX ? waitingJSX : null}
+        {/* {menuJSX} */}
+        {/* <Waiting /> */}
+        {/* {waitingJSX} */}
+        {/* <Voting /> */}
+        {/* {votingJSX} */}
+        {votingJSX ? votingJSX : null}
+        <Results />
+        <Final />
+      </main>
+      // </Router>
     );
   }
 }

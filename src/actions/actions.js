@@ -15,9 +15,9 @@ export const addPlayerFailure = () => ({
   payload: ''
 });
 
-export const startGame = state => ({
-  type: types.START_GAME,
-  payload: state
+export const setNewGameState = state => ({
+  type: types.SET_NEW_GAME_STATE,
+  payload: JSON.parse(state)
 });
 
 export function addPlayer(username, password) {

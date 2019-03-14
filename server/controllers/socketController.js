@@ -12,19 +12,18 @@ function initializeSocketService(server) {
   */
     connections.push(socket.id);
 
-    setInterval(() => {
-      for (let i = 0; i < connections.length; i += 1) {
-        // to emit heartbeat
-        io.to(connections[i]).emit('message', `heart beat for ${i}`);
-      }
-    }, 1000);
+    // setInterval(() => {
+    //   for (let i = 0; i < connections.length; i += 1) {
+    //     // to emit heartbeat
+    //     io.to(connections[i]).emit('message', `heart beat for ${i}`);
+    //   }
+    // }, 2000);
 
     socket.on('CREATE', () => {
       gameController.createGame(socket);
     });
 
     socket.on('JOIN', req => {
-      console.log(socket);
       gameController.joinGame(socket, req, io);
     });
 
@@ -39,7 +38,9 @@ function initializeSocketService(server) {
       Handles disconnecting events
     */
     socket.on('SUBMIT_VOTE', req => {
-      gameController.submitVote(socket, req, io);
+      console.log('submit vote socket incoming: ', JSON.parse(req));
+
+      gameController.submitVote(socket, JSON.parse(req), io);
     });
 
     socket.on('disconnect', () => {
