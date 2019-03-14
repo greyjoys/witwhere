@@ -20,8 +20,9 @@ export const loginFailure = (error) => ({
   payload: error
 });
 
-export const advanceStage = () => ({
-  type: types.ADVANCE_STAGE
+export const setNewGameState = state => ({
+  type: types.SET_NEW_GAME_STATE,
+  payload: JSON.parse(state)
 });
 
 export function addPlayer(username, password) {

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom';
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
@@ -9,13 +14,16 @@ import Signup from '../components/Signup.jsx'
 import Signup from '../components/Signup.jsx';
 import Login from '../components/Login.jsx';
 
+import Login from '../components/Login.jsx'
+import Signup from '../components/Signup.jsx'
+
+import Signup from '../components/Signup.jsx';
+import Login from '../components/Login.jsx';
+
+
 const mapStateToProps = store => ({
-  gameStage: store.main.gameStage,
-  playerName: store.main.playerName,
-  playerPass: store.main.playerPass,
-  playerList: store.main.playerList,
-  signUpError: store.main.signUpError,
-  loginError: store.main.loginError,
+  playerName: store.auth.playerName,
+  playerPass: store.auth.playerPass
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -42,6 +50,23 @@ const mapDispatchToProps = dispatch => ({
 class AuthContainer extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isLoggedIn: false,
+      userClickedButton: null
+    };
+    this.loginClicked = this.loginClicked.bind(this);
+    this.signUpClicked = this.signUpClicked.bind(this);
+  }
+
+  loginClicked() {
+    this.setState({ userClickedButton: 'login' });
+  }
+
+  signUpClicked() {
+    this.setState({ userClickedButton: 'signup' });
+
+
     }
 
   
@@ -69,13 +94,28 @@ class AuthContainer extends Component {
             )
           }}
           />
+<<<<<<< HEAD
+=======
+
+>>>>>>> f40b0feb148ec5fd5939da3be0d86ebe73ef666a
   }
 
   render() {
-    
+    if (this.state.userClickedButton === 'login') {
+      return <Redirect to="/auth/login" />;
+    }
+    if (this.state.userClickedButton === 'signup') {
+      return <Redirect to="/auth/signup" />;
+    }
+
     return (
       <Router>
         <div className="auth-container">
+
+          <h1>Inside auth container</h1>
+          <button onClick={this.loginClicked}>Login</button>
+          <button onClick={this.signUpClicked}>Sign Up</button>
+
           <h1>Are you ready to do the thing?</h1>
           <Link to='/login'>Login</Link>
           <Link to='/signup'>Sign Up</Link>
@@ -84,6 +124,7 @@ class AuthContainer extends Component {
             render={props => <Login {...props} /> } 
           />
           <Route path={'/signup'} component={ Signup } />
+
         </div>
       </Router>
     );
