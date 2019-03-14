@@ -9,7 +9,7 @@ const final = props => {
       <button onClick={ props.restartGame }>
         Play Again.
       </button>
-      <button onClick={ alert('No.') }>
+      <button>
         Quit Game.
       </button>
     </div>
