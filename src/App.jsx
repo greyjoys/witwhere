@@ -1,50 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import io from 'socket.io-client';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 // Import Children
-
-import Menu from './components/Menu.jsx';
 import MainContainer from './containers/MainContainer.jsx';
 import AuthContainer from './containers/AuthContainer.jsx';
+
+import Waiting from './components/game-components/Waiting.jsx';
+import Voting from './components/game-components/Voting.jsx';
+import Results from './components/game-components/Results.jsx';
+import Final from './components/game-components/Final.jsx';
+import Signup from './components/Signup.jsx';
+import Login from './components/Login.jsx';
 
 import * as actions from './actions/actions';
 
 const mapStateToProps = store => ({});
-
-const mapDispatchToProps = dispatch => ({
-  testSocket: state => {
-    dispatch(actions.testSocket(state));
-  }
-});
 
 class App extends Component {
   constructor(props) {
     super(props);
   }
 
-  componentDidMount() {
-    console.log('initiating socket connection');
-    console.log(window.location.href);
-    const socket = io('http://localhost:8000');
-    console.log(typeof socket);
-    console.log(`${window.location.href}`);
-    // socket.on('message', data => console.log(data));
-    socket.on('message', data => {
-      this.props.testSocket(data);
-      console.log(data);
-    });
-  }
-
   render() {
     return (
       <Router>
         <React.Fragment>
-          <h1>**** WITWHERE 64 V1.00 BASIC V2 ****</h1>
-          <Route path={'/'} component={AuthContainer} />
-          <Route path={'/'} component={Menu} />
-          <Route path={'/'} component={MainContainer} />
+          <h1>**** WITWHERE 64 V2.00 BASIC V2 ****</h1>
+          <hr />
+          <Route path={'/'} component={ AuthContainer } />
+          <Route path={'/main'} component={ MainContainer } />
+          <Route path={'/waiting'} component={ Waiting } />
+          <Route path={'/voting'} component={ Voting } />
+          <Route path={'/results'} component={ Results } />
+          <Route path={'/final'} component={ Final } />
+          <Route path={'/auth/login'} component={ Login } />
+          <Route path={'/auth/signup'} component={ Signup } />
         </React.Fragment>
       </Router>
     );
