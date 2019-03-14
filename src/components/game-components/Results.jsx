@@ -9,7 +9,7 @@ const results = props => {
         <h3>Player One:</h3>
         <p>{ props.player1Response }</p>
         <p>{ props.response1Votes }</p>
-        <i class="fas fa-star" />
+        <i className="fas fa-star" />
         <h3>Player Two:</h3>
         <p>{ props.player2Response }</p>
         <p>{ props.response1Votes }</p>
