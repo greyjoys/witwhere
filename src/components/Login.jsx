@@ -5,6 +5,7 @@ const Login = props => {
   if (props.loggedIn) {
     <Redirect to='/lobby' />;
   } else {
+    if(!props.loginError) {
     return (
       <div className='login-box'>
         <label name='username'>Player name:</label>
@@ -25,14 +26,39 @@ const Login = props => {
         />
         <button
           onClick={() => {
-            props.addPlayer(props.playerName, props.playerPass);
+            props.login(props.playerName, props.playerPass);
           }}
-        >
-          Log In.
-        </button>
+        >Log In.</button>
       </div>
     );
-  }
+  } else {
+    return (
+      <div className='login-box'>
+      <label name='username'>Player name:</label>
+      <input
+        id='username'
+        name='username'
+        type='text'
+        value={ props.playerName }
+        onChange={ props.updatePlayerName }
+      />
+      <label name='password'>Password:</label>
+      <input
+        id='password'
+        name='password'
+        type='password'
+        value={ props.playerPass }
+        onChange={ props.updatePlayerPass }
+      />
+      <p>{props.loginError}</p>
+      <button
+        onClick={() => {
+          props.login(props.playerName, props.playerPass);
+        }}>Log In.</button>
+    </div>
+    );
+  };
+  };
 };
 
 export default Login;

@@ -16,7 +16,9 @@ const initialState = {
   count: 0,
   p1AnswerVoteCount: 0,
   p2AnswerVoteCount: 0,
-  footerInput: ''
+  footerInput: '',
+  loginError: null,
+  signUpError: null
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -92,13 +94,21 @@ const mainReducer = (state = initialState, action) => {
     //   }
     // }
 
-    case types.ADD_PLAYER_FAILURE: {
-      let newPlayerName = action.payload;
-      let newPlayerPass = action.payload;
+    case types.LOGIN_FAILURE: {
+      const loginError = action.payload;
+      console.log('login error', action.payload)
       return {
         ...state,
-        playerPass: newPlayerPass,
-        playerName: newPlayerName
+        loginError,
+      };
+    }
+
+    case types.SIGNUP_FAILURE: {
+      const signUpError = action.payload;
+      console.log('signup error', action.payload)
+      return {
+        ...state,
+        signUpError,
       };
     }
 

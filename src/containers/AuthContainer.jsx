@@ -11,7 +11,9 @@ const mapStateToProps = store => ({
   gameStage: store.main.gameStage,
   playerName: store.main.playerName,
   playerPass: store.main.playerPass,
-  playerList: store.main.playerList
+  playerList: store.main.playerList,
+  signUpError: store.main.signUpError,
+  loginError: store.main.loginError,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -29,6 +31,9 @@ const mapDispatchToProps = dispatch => ({
   // },
   addPlayer: (playerName, playerPass) => {
     dispatch(actions.addPlayer(playerName, playerPass));
+  },
+  login: (playerName, playerPass) => {
+    dispatch(actions.login(playerName, playerPass));
   }
 });
 
