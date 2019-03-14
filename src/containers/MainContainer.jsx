@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
+import Lobby from '../components/Lobby.jsx';
 import Waiting from '../components/game-components/Waiting.jsx';
 import Voting from '../components/game-components/Voting.jsx';
 import Results from '../components/game-components/Results.jsx';
@@ -26,9 +27,9 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addSocket: ws => {
-    dispatch(actions.addWebSocketToStore(ws));
-  }
+  // addSocket: ws => {
+  //   dispatch(actions.addWebSocketToStore(ws));
+  // }
 });
 
 // Component Body
@@ -36,6 +37,9 @@ const mapDispatchToProps = dispatch => ({
 class MainContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      
+    }
   }
 
   componentDidMount() {
@@ -54,7 +58,7 @@ class MainContainer extends Component {
     return (
       <Router>
         <main className="main-container">
-          <Route path="/" render={() => <Lobby />} />
+          {/* <Route path="/" render={() => <Lobby />} /> */}
           <Menu />
           <Waiting />
           <Voting />
