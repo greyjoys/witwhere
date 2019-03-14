@@ -24,26 +24,11 @@ module.exports = {
         test: /\.css$/,
         exclude: [path.resolve(__dirname, 'node_modules')],
         use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
-      },
-      {
-        test: /\.TTF$/,
-        use: [
-          {
-            loader: 'ttf-loader',
-            options: {
-              name: './font/C64.ttf'
-            }
-          }
-        ]
       }
     ]
   },
   devServer: {
     publicPath: '/build',
-    // proxy: [{
-    //   '/fonts/Commodore64.ttf': 'http://localhost:8000',
-    //   '/api': 'http://localhost:8000'
-    // }],
     proxy: [
       {
         context: ['/api', '/socket.io', '/fonts'],

@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
+<<<<<<< HEAD
 import Login from '../components/Login.jsx'
 import Signup from '../components/Signup.jsx'
+=======
+import Signup from '../components/Signup.jsx';
+import Login from '../components/Login.jsx';
+>>>>>>> 2c65d6132f5579faf87311fb168abd8c48c20a39
 
 const mapStateToProps = store => ({
   gameStage: store.main.gameStage,
@@ -40,6 +45,7 @@ const mapDispatchToProps = dispatch => ({
 class AuthContainer extends Component {
   constructor(props) {
     super(props);
+<<<<<<< HEAD
     }
 
   
@@ -67,6 +73,23 @@ class AuthContainer extends Component {
             )
           }}
           />
+=======
+  }
+
+  render() {
+    
+    return (
+      <Router>
+        <div className="auth-container">
+          <h1>Are you ready to do the thing?</h1>
+          <Link to='/login'>Login</Link>
+          <Link to='/signup'>Sign Up</Link>
+          <Route 
+            path={'/login'} 
+            render={props => <Login {...props} /> } 
+          />
+          <Route path={'/signup'} component={ Signup } />
+>>>>>>> 2c65d6132f5579faf87311fb168abd8c48c20a39
         </div>
       </Router>
     );
