@@ -27,7 +27,7 @@ class App extends Component {
   componentDidMount() {
     console.log('initiating socket connection');
     console.log(window.location.href);
-    const socket = io(`${window.location.href}`);
+    const socket = io('http://localhost:8000');
     console.log(typeof socket);
     console.log(`${window.location.href}`);
     // socket.on('message', data => console.log(data));
@@ -43,8 +43,8 @@ class App extends Component {
         <React.Fragment>
           <h1>**** WITWHERE 64 V1.00 BASIC V2 ****</h1>
           <Route path={'/'} component={AuthContainer} />
-          <Route path={'/menu'} component={Menu} />
-          <Route path={'/main'} component={MainContainer} />
+          <Route path={'/'} component={Menu} />
+          <Route path={'/'} component={MainContainer} />
         </React.Fragment>
       </Router>
     );
