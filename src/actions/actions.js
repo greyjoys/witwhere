@@ -57,12 +57,12 @@ export const testButton = () => dispatch => {
 export function addPlayer(username, password) {
   console.log('inside add player', username, password);
   return dispatch => {
-    fetch('http://localhost:8000/api/signup', {
+    fetch('/api/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      mode: 'no-cors',
+      
       body: JSON.stringify({
         username: username,
         password: password

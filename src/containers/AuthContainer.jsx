@@ -46,7 +46,7 @@ class AuthContainer extends Component {
         <Link to="/login">Log In</Link>
         <Link to="/signup">Sign Up</Link>
         <Route path={'/login'} render={() => <Login {...this.props} />} />
-        <Route path={'/signup'} component={Signup} />
+        <Route path={'/signup'} render={() => <Signup {...this.props} />} />
       </div>
     );
   }

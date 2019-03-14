@@ -19,7 +19,7 @@ const Login = props => {
         <input
           id='password'
           name='password'
-          type='text'
+          type='password'
           value={ props.playerPass }
           onChange={ props.updatePlayerPass }
         />

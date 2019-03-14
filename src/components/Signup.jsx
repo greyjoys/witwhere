@@ -19,11 +19,13 @@ const Signup = props => {
         <input 
           id="password" 
           name="password"
-          type="text" 
+          type="password" 
           value={ props.playerPass } 
           onChange={ props.updatePlayerPass } 
         />
-        <button onClick={ props.addPlayer }>Sign Up.</button>
+        <button onClick={() => {
+            props.addPlayer(props.playerName, props.playerPass);
+          }}>Sign Up.</button>
       </div>
     );
   };
