@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   entry: path.resolve('./src', 'index.js'),
   output: { path: path.resolve(__dirname, 'build'), filename: 'bundle.js' },
   module: {
@@ -35,8 +35,15 @@ module.exports = {
   },
   devServer: {
     publicPath: '/build',
-    proxy: {
-      '/fonts/Commodore64.ttf': 'http://localhost:3000'
-    }
+    // proxy: {
+    //   '/fonts/Commodore64.ttf': 'http://localhost:8000',
+    //   '/api': 'http://localhost:8000'
+    // }
+    proxy: [
+      {
+        context: ['/api', '/socket.io', '/fonts'],
+        target: 'http://localhost:8000'
+      }
+    ]
   }
 };

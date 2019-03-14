@@ -4,6 +4,10 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 // import actions from action creators file
 import * as actions from '../actions/actions';
 // import from child components when the time comes...
+import Waiting from '../components/game-components/Waiting.jsx'
+import Voting from '../components/game-components/Voting.jsx'
+import Results from '../components/game-components/Results.jsx'
+import Final from '../components/game-components/Final.jsx'
 
 const mapStateToProps = store => ({
   gameStage: store.main.gameStage,
@@ -51,8 +55,10 @@ class MainContainer extends Component {
 
     return (
       <main className="main-container">
-        <Link to="/lobby">Lobby</Link>
-        <Route path={'/lobby'} render={() => <Lobby {...this.props} />} />
+        <Waiting />
+        <Voting />
+        <Results />
+        <Final />
       </main>
     );
   };

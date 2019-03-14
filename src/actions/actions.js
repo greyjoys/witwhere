@@ -33,6 +33,12 @@ export const startGame = state => ({
   type: types.START_GAME,
   payload: state
 });
+
+export const testSocket = webSocketValue => ({
+  type: types.TEST_SOCKET,
+  payload: webSocketValue
+});
+
 export const testButton = () => dispatch => {
   console.log('test');
   fetch('http://localhost:8000/api/signin', {
@@ -56,13 +62,17 @@ export const testButton = () => dispatch => {
 
 export function addPlayer(username, password) {
   console.log('inside add player', username, password);
+  const stringified = JSON.stringify({
+    username,
+    password
+  });
+  console.log('jsonified', stringified);
   return dispatch => {
     fetch('/api/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      
       body: JSON.stringify({
         username: username,
         password: password
