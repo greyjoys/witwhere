@@ -7,6 +7,13 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import * as actions from './actions/actions';
 import MainContainer from './containers/MainContainer.jsx';
 import AuthContainer from './containers/AuthContainer.jsx';
+import Waiting from './components/game-components/Waiting.jsx';
+import Voting from './components/game-components/Voting.jsx';
+import Final from './components/game-components/Final.jsx';
+import Results from './components/game-components/Results.jsx';
+import Prompt from './components/game-components/Prompt.jsx';
+import ObserverVoting from './components/game-components/ObserverVoting.jsx';
+import Lobby from './components/Lobby.jsx';
 
 // Redux Methods
 

@@ -315,13 +315,66 @@ p {
   color: #ffffff;
   background-color: #B19AFF;
 }
+.response-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .response-box input {
-  width: 300px;
+  width: 800px;
   font-family: 'Press Start 2P', cursive;
-  font-size: 4rem;
-  padding: 10px;
+  font-size: 2rem;
+  padding: 7px;
   margin-top: 30px;
   border: 4px solid #ffffff;
   border-radius: 10px;
   text-align: center;
+}
+.response-box button {
+  align-self: center;
+  font-size: 1.5rem;
+  font-family: 'Press Start 2P', cursive;
+  color: #ffffff;
+  background-color: #23009a;
+  padding: 10px 20px;
+  border: 4px solid #ffffff;
+  border-radius: 10px;
+  margin: 20px;
+}
+.response-box button:hover {
+  color: #ffffff;
+  background-color: #B19AFF;
+}
+.waiting-for-box {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  text-align: center;
+}
+.waiting-for-box button {
+  font-size: 1.5rem;
+  font-family: 'Press Start 2P', cursive;
+  color: #ffffff;
+  background-color: #23009a;
+  padding: 10px 20px;
+  border: 4px solid #ffffff;
+  border-radius: 10px;
+  margin: 20px;
+}
+.waiting-for-box button:hover {
+  color: #ffffff;
+  background-color: #B19AFF;
+}
+.voting-choices-box button {
+  font-size: 1.5rem;
+  font-family: 'Press Start 2P', cursive;
+  color: #ffffff;
+  background-color: #23009a;
+  padding: 10px 10px;
+  border: 4px solid #ffffff;
+  border-radius: 10px;
+  margin: 20px;
+}
+.voting-choices-box button:hover {
+  color: #ffffff;
+  background-color: #B19AFF;
 }

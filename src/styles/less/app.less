@@ -177,14 +177,75 @@
 }
 
 .response-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   input {
-    width: 300px;
+    width: 800px;
     font-family: @main-font;
-    font-size: 4rem;
-    padding: 10px;
+    font-size: 2rem;
+    padding: 7px;
     margin-top: 30px;
     border: 4px solid @tertiary;
     border-radius: 10px;
     text-align: center;
+  }
+
+  button {
+    align-self: center;
+    font-size: 1.5rem;
+    font-family: @main-font;
+    color: @tertiary;
+    background-color: darken(@primary, 50%);
+    padding: 10px 20px;
+    border: 4px solid @tertiary;
+    border-radius: 10px;
+    margin: 20px;
+
+    &:hover {
+      color: @tertiary;
+      background-color: @primary;
+    }
+  }
+}
+
+.waiting-for-box {
+  font-family: @main-font;
+  font-size: 2rem;
+  text-align: center;
+
+  button {
+    font-size: 1.5rem;
+    font-family: @main-font;
+    color: @tertiary;
+    background-color: darken(@primary, 50%);
+    padding: 10px 20px;
+    border: 4px solid @tertiary;
+    border-radius: 10px;
+    margin: 20px;
+
+    &:hover {
+      color: @tertiary;
+      background-color: @primary;
+    }
+  }
+}
+
+.voting-choices-box {
+  button {
+    font-size: 1.5rem;
+    font-family: @main-font;
+    color: @tertiary;
+    background-color: darken(@primary, 50%);
+    padding: 10px 10px;
+    border: 4px solid @tertiary;
+    border-radius: 10px;
+    margin: 20px;
+
+    &:hover {
+      color: @tertiary;
+      background-color: @primary;
+    }
   }
 }
