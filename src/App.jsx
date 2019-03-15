@@ -39,27 +39,28 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <React.Fragment>
-          <h1>**** WITWHERE 64 V2.00 BASIC V2 ****</h1>
-          <hr />
-          <Route
-            exact
-            path="/"
-            render={() =>
-              this.props.isAuthenticated ? (
-                <Redirect to="/main" />
-              ) : (
-                <AuthContainer {...this.props} />
-              )
-            }
-          />
-          <Route
-            path={'/main'}
-            render={() => <MainContainer {...this.props} />}
-          />
-        </React.Fragment>
-      </Router>
+      <Voting />
+      // <Router>
+      //   <React.Fragment>
+      //     <h1>**** WITWHERE 64 V2.00 BASIC V2 ****</h1>
+      //     <hr />
+      //     <Route
+      //       exact
+      //       path="/"
+      //       render={() =>
+      //         this.props.isAuthenticated ? (
+      //           <Redirect to="/main" />
+      //         ) : (
+      //           <AuthContainer {...this.props} />
+      //         )
+      //       }
+      //     />
+      //     <Route
+      //       path={'/main'}
+      //       render={() => <MainContainer {...this.props} />}
+      //     />
+      //   </React.Fragment>
+      // </Router>
     );
   }
 }
