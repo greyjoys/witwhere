@@ -36,8 +36,7 @@ class App extends Component {
         <React.Fragment>
           <h1>**** WITWHERE 64 V2.00 BASIC V2 ****</h1>
           <hr />
-          <MainContainer />
-          {/* <Route
+          <Route
             exact
             path="/"
             render={() =>
@@ -51,7 +50,7 @@ class App extends Component {
           <Route
             path={'/main'}
             render={() => <MainContainer {...this.props} />}
-          /> */}
+          />
         </React.Fragment>
       </Router>
     );
