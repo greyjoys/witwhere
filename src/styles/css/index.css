@@ -234,6 +234,16 @@ p {
   justify-content: space-between;
   height: 90px;
 }
+#contents .login-box div label {
+  font-size: 1.6rem;
+  margin-top: 15px;
+}
+#contents .login-box div input {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  padding: 7px;
+  margin-top: 10px;
+}
 #contents .login-box button {
   font-size: 1.5rem;
   font-family: 'Press Start 2P', cursive;
@@ -242,6 +252,7 @@ p {
   padding: 10px 20px;
   border: 4px solid #ffffff;
   border-radius: 10px;
+  align-self: flex-end;
 }
 #contents .login-box button:hover {
   color: #ffffff;
