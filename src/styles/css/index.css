@@ -350,6 +350,10 @@ p {
   font-size: 2rem;
   text-align: center;
 }
+.waiting-for-box h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .waiting-for-box button {
   font-size: 1.5rem;
   font-family: 'Press Start 2P', cursive;
@@ -377,4 +381,7 @@ p {
 .voting-choices-box button:hover {
   color: #ffffff;
   background-color: #B19AFF;
+}
+.prompt-box h2 {
+  margin: 20px;
 }
