@@ -2,7 +2,8 @@ import * as types from '../const/actionTypes';
 
 const initialState = {
   playerName: '',
-  playerPass: ''
+  playerPass: '',
+  isAuthenticated: false
 };
 
 const authReducer = (state = initialState, action) => {
@@ -22,6 +23,12 @@ const authReducer = (state = initialState, action) => {
       };
     }
 
+    case types.AUTHENTICATE: {
+      return {
+        ...state,
+        isAuthenticated: true
+      };
+    }
     case types.UPDATE_PLAYER_PASS: {
       let newPlayerPass = action.payload;
 

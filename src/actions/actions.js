@@ -5,6 +5,10 @@ export const updatePlayerName = e => ({
   payload: e.target.value
 });
 
+export const authenticatePlayer = () => ({
+  type: types.AUTHENTICATE,
+  payload: true
+});
 export const updatePlayerPass = e => ({
   type: types.UPDATE_PLAYER_PASS,
   payload: e.target.value
@@ -15,7 +19,7 @@ export const signUpFailure = (error, boolean) => ({
   payload: [error, boolean]
 });
 
-export const loginFailure = (error) => ({
+export const loginFailure = error => ({
   type: types.LOGIN_FAILURE,
   payload: error
 });
@@ -32,9 +36,7 @@ export function addPlayer(username, password) {
     password
   });
 
-  
   return dispatch => {
-    
     fetch('/api/signup', {
       method: 'POST',
       headers: {
@@ -45,13 +47,14 @@ export function addPlayer(username, password) {
         password: password
       })
     })
-    .then(res => res.json())
-    .then(newState => {
-      dispatch(startGame(newState))
-    },
-    // err => dispatch(signUpFailure("Username already in use!"))
-    )
-    .catch(err => dispatch(signUpFailure("Username already in use!", true)))
+      .then(res => res.json())
+      .then(
+        newState => {
+          dispatch(startGame(newState));
+        }
+        // err => dispatch(signUpFailure("Username already in use!"))
+      )
+      .catch(err => dispatch(signUpFailure('Username already in use!', true)));
   };
 }
 
@@ -75,8 +78,8 @@ export function login(username, password) {
     })
       .then(res => res.json())
       .then(
-        newState => dispatch(startGame(newState)),
-        err => dispatch(loginFailure("Wrong Password"))
+        newState => dispatch(authenticatePlayer()),
+        err => dispatch(loginFailure('Wrong Password'))
       );
   };
 }
