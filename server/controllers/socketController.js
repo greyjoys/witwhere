@@ -7,9 +7,6 @@ function initializeSocketService(server) {
   const connections = [];
 
   io.on('connection', socket => {
-    /* 
-    Handles join events
-  */
     connections.push(socket.id);
 
     // setInterval(() => {
@@ -27,19 +24,11 @@ function initializeSocketService(server) {
       gameController.joinGame(socket, req, io);
     });
 
-    /*
-      Handles any events labeled move.
-    */
     socket.on('ADD_RESPONSE', req => {
       gameController.addResponse(socket, req, io);
     });
 
-    /*
-      Handles disconnecting events
-    */
     socket.on('SUBMIT_VOTE', req => {
-      console.log('submit vote socket incoming: ', JSON.parse(req));
-
       gameController.submitVote(socket, JSON.parse(req), io);
     });
 

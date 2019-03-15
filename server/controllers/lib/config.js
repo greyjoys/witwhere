@@ -1,6 +1,6 @@
 const defaultGameConfig = {
   gid: undefined,
-  maxPoints: 10,
+  maxPoints: 3,
   maxPlayers: 3
 };
 

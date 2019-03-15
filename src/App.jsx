@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 // Import Children
 
@@ -12,7 +12,8 @@ import AuthContainer from './containers/AuthContainer.jsx';
 
 const mapStateToProps = store => ({
   playerName: store.auth.playerName,
-  playerPass: store.auth.playerPass
+  playerPass: store.auth.playerPass,
+  isAuthenticated: store.auth.isAuthenticated
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -35,12 +36,30 @@ class App extends Component {
         <React.Fragment>
           <h1>**** WITWHERE 64 V2.00 BASIC V2 ****</h1>
           <hr />
-          <Route path={'/'} component={AuthContainer} />
-          <Route path={'/main'} component={MainContainer} />
+          <Route
+            exact
+            path="/"
+            render={() =>
+              this.props.isAuthenticated ? (
+                <Redirect to="/main" />
+              ) : (
+                <AuthContainer {...this.props} />
+              )
+            }
+          />
+          {/* <Route path={'/'} render={() => <AuthContainer {...this.props} />} /> */}
+          <Route
+            path={'/main'}
+            render={() => <MainContainer {...this.props} />}
+          />
+          {/* {this.props.isAuthenticated ? <MainContainer /> : <AuthContainer />} */}
         </React.Fragment>
       </Router>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

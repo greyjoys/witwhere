@@ -1,7 +1,6 @@
 import * as types from '../const/actionTypes';
 
 const initialState = {
-
   gid: -1,
   username: 'defaultplayer',
   users: {},
@@ -100,27 +99,27 @@ const mainReducer = (state = initialState, action) => {
 
     case types.LOGIN_FAILURE: {
       const loginError = action.payload;
-      console.log('login error', action.payload)
+      console.log('login error', action.payload);
       return {
         ...state,
-        loginError,
+        loginError
       };
     }
 
     case types.SIGNUP_FAILURE: {
       const signUpError = action.payload;
-      console.log('signup error', action.payload)
+      console.log('signup error', action.payload);
       return {
         ...state,
-        signUpError,
+        signUpError
       };
     }
 
     case types.START_GAME: {
-      console.log('start game success')
+      console.log('start game success');
       return { ...state, ...action.payload };
     }
-    
+
     case types.LOGIN_USER: {
       return {
         ...state
