@@ -6,8 +6,10 @@ const final = props => {
     <div className="final-box">
       <i className="fas fa-crown" />
       <h2>{props.finalWinner}</h2>
-      <button onClick={props.restartGame}>Play Again.</button>
-      <button>Quit Game.</button>
+      <div>
+        <button onClick={props.restartGame}>Play Again.</button>
+        <button>Quit Game.</button>
+      </div>
     </div>
   );
 };

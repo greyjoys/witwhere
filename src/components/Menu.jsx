@@ -2,7 +2,7 @@ import React from 'react';
 
 const menu = props => {
   return (
-    <div className="menu-box" style={{ backgroundColor: 'red' }}>
+    <div className="menu-box">
       <button
         onClick={() => {
           props.handleCreateNewGame(props.ws, props.reduxAddGid);

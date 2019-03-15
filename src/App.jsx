@@ -36,7 +36,8 @@ class App extends Component {
         <React.Fragment>
           <h1>**** WITWHERE 64 V2.00 BASIC V2 ****</h1>
           <hr />
-          <Route
+          <MainContainer />
+          {/* <Route
             exact
             path="/"
             render={() =>
@@ -47,12 +48,10 @@ class App extends Component {
               )
             }
           />
-          {/* <Route path={'/'} render={() => <AuthContainer {...this.props} />} /> */}
           <Route
             path={'/main'}
             render={() => <MainContainer {...this.props} />}
-          />
-          {/* {this.props.isAuthenticated ? <MainContainer /> : <AuthContainer />} */}
+          /> */}
         </React.Fragment>
       </Router>
     );
