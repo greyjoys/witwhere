@@ -11,23 +11,25 @@ const Login = props => {
 
   return (
     <div className='login-box'>
-      <label name='username'>Username: </label>
-      <input
-        id='username'
-        name='username'
-        type='text'
-        value={ props.playerName }
-        onChange={ props.updatePlayerName }
-      />
-      <label name='password'>Password: </label>
-      <input
-        id='password'
-        name='password'
-        type='password'
-        value={ props.playerPass }
-        onChange={ props.updatePlayerPass }
-      />
-      {logInErrorMessage}
+      <div>
+        <label name='username'>Username: </label>
+        <input
+          id='username'
+          name='username'
+          type='text'
+          value={ props.playerName }
+          onChange={ props.updatePlayerName }
+        />
+        <label name='password'>Password: </label>
+        <input
+          id='password'
+          name='password'
+          type='password'
+          value={ props.playerPass }
+          onChange={ props.updatePlayerPass }
+        />
+        {logInErrorMessage}
+      </div>
       <button
         onClick={() => {
           props.login(props.playerName, props.playerPass);

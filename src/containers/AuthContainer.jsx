@@ -42,11 +42,11 @@ class AuthContainer extends Component {
     return (
       <Router>
         <div className="auth-container">
-          <h1>Inside Auth container</h1>
-          <Link to="/auth/login">Login</Link>
+        <h2>Bring your wit...</h2>
+          <Link to="/auth/login" className='a1'>Login</Link>
           {/* <Link to="/main">Login</Link> */}
+          <Link to="/auth/signup" className='a2'>Sign Up</Link>
           <Route path={'/main'} component={MainContainer} />
-          <Link to="/auth/signup">Sign Up</Link>
           <Route
             path={'/auth/login'}
             render={props => <Login {...this.props} />}
@@ -55,6 +55,7 @@ class AuthContainer extends Component {
             path={'/auth/signup'}
             render={props => <Signup {...this.props} />}
           />
+        <h2>...because we ain't got none.</h2>
         </div>
       </Router>
     );

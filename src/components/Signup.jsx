@@ -11,23 +11,25 @@ const Signup = props => {
 
   return (
     <div className='signup-box'> 
-      <label name="username">Username: </label>
-      <input 
-        id="username" 
-        name="username"
-        type="text" 
-        value={ props.playerName } 
-        onChange={ props.updatePlayerName } 
-      />
-      <label name="password">Password: </label>
-      <input 
-        id="password" 
-        name="password"
-        type="password" 
-        value={ props.playerPass } 
-        onChange={ props.updatePlayerPass } 
-      />
-      {signUpErrorMessage}
+      <div>
+        <label name="username">Username: </label>
+        <input 
+          id="username" 
+          name="username"
+          type="text" 
+          value={ props.playerName } 
+          onChange={ props.updatePlayerName } 
+        />
+        <label name="password">Password: </label>
+        <input 
+          id="password" 
+          name="password"
+          type="password" 
+          value={ props.playerPass } 
+          onChange={ props.updatePlayerPass } 
+        />
+        {signUpErrorMessage}
+      </div>
       <button 
         onClick={() => {
           props.addPlayer(props.playerName, props.playerPass);
